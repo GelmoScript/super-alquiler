@@ -1,0 +1,9 @@
+﻿button {
+    float: right;
+    margin: 0 .3em;
+}
+
+h3 {
+    display: inline-block;
+    margin-bottom: 1em;
+}

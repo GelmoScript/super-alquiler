@@ -1,0 +1,69 @@
+﻿<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Matricula</th>
+            <th>NoSeguro</th>
+            <th>Año</th>
+            <th>Precio por Dia</th>
+            <th>Capacidad de Carga</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_vehiculos == null || _vehiculos.Count == 0)
+        {
+            <tr>
+                <td colspan="7">No hay vehiculos</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var vehiculo in _vehiculos)
+            {
+                <tr>
+                    <td>@vehiculo.Id</td>
+                    <td>@vehiculo.Marca</td>
+                    <td>@vehiculo.Modelo</td>
+                    <td>@vehiculo.Matricula</td>
+                    <td>@vehiculo.NoSeguro</td>
+                    <td>@vehiculo.Year</td>
+                    <td>@vehiculo.PrecioPorDia</td>
+                    <td>@vehiculo.CapacidadDeCarga</td>
+                    <td>
+                        <button class="btn btn-primary"
+                                @onclick="async () => { await Editar_Click(vehiculo.Id); }">
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger"
+                                @onclick="async () => { await Eliminar_Click(vehiculo.Id); }">
+                            <span class="oi oi-x"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Vehiculo> _vehiculos = DatosSemilla.Instancia.Vehiculos;
+
+    [Parameter]
+    public EventCallback<int> ParaEditarVehiculo { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ParaEliminarVehiculo { get; set; }
+
+    protected async Task Editar_Click(int id)
+    {
+        await ParaEditarVehiculo.InvokeAsync(id);
+    }
+
+    protected async Task Eliminar_Click(int id)
+    {
+        await ParaEliminarVehiculo.InvokeAsync(id);
+    }
+}
