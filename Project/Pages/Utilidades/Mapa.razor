@@ -1,0 +1,79 @@
+﻿<div class="row">
+    <div class="col"></div>
+    <div class="col-md-8">
+        <RadzenGoogleMap style="height: 400px; margin: 1em 0"
+                         Zoom="@zoom"
+                         MapClick="OnMapClick"
+                         MarkerClick="OnMarkerClick"
+                         Center="@center">
+            <Markers>
+                @if (hayPosicionAsignada)
+                {
+                    <RadzenGoogleMapMarker Title="Posicion Actual" Label="" Position="Posicion" />
+                }
+                @foreach (var marcador in Marcadores)
+                {
+                    <RadzenGoogleMapMarker Title="@marcador.Titulo"
+                                           Label="@marcador.Etiqueta"
+                                           Position="@marcador.Posicion" />
+                }
+            </Markers>
+
+        </RadzenGoogleMap>
+    </div>
+    <div class="col"></div>
+</div>
+
+@code {
+
+    private int zoom = 16;
+    private bool hayPosicionAsignada = false;
+
+    [Parameter]
+    public GoogleMapPosition Posicion { get; set; }
+
+    [Parameter]
+    public bool? Bloqueado { get; set; }
+
+    [Parameter]
+    public List<Marcador> Marcadores { get; set; }
+
+    [Parameter]
+    public EventCallback<GoogleMapPosition> PosicionCambiada { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Marcadores == null) Marcadores = new List<Marcador>();
+        if (!Bloqueado.HasValue) Bloqueado = false;
+        if (Posicion == null) Posicion = new GoogleMapPosition();
+        else
+        {
+            hayPosicionAsignada = true;
+            center = Posicion;
+        }
+    }
+
+    private GoogleMapPosition center = new GoogleMapPosition
+    {
+        Lat = 42.6977,
+        Lng = 23.3219
+    };
+
+    async Task OnMapClick(GoogleMapClickEventArgs args)
+    {
+
+        center.Lat = args.Position.Lat;
+        center.Lng = args.Position.Lng;
+        if (Bloqueado.Value) return;
+        Posicion.Lat = args.Position.Lat;
+        Posicion.Lng = args.Position.Lng;
+        hayPosicionAsignada = true;
+        await PosicionCambiada.InvokeAsync(Posicion);
+    }
+
+    void OnMarkerClick(RadzenGoogleMapMarker args)
+    {
+
+    }
+
+}

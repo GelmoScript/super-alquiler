@@ -1,0 +1,17 @@
+﻿label {
+    display: block;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-between
+}
+
+button {
+    width: 45%;
+    margin-top: 1.3em;
+}
+
+.deshabilitado {
+    pointer-events: none;
+}
