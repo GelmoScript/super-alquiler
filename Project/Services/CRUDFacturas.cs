@@ -17,14 +17,14 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void CreateFactura (int reserva, double monto)
+        public void Create (int reserva, double monto)
         {
             PatronSingleton();
 
             conexion.CrearFactura(reserva, monto);
         }
 
-        public void PagarFactura(int FacturaID, double monto)
+        public void Pagar (int FacturaID, double monto)
         {
             PatronSingleton();
 

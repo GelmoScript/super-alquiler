@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperAlquiler.Entities;
 
 namespace SuperAlquiler.Services
 {
@@ -20,28 +21,28 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void CreateVehiculo(string marca, string modelo, int year, string color, double precioDia, string tipo, int capacidadCarga, int pasajeros, string matricula, string numeroSeguro, Byte[] foto, string latitud, string longitud, bool estatus, bool borrado)
+        public void Create (Vehiculo vehiculo)
         {
             PatronSingleton();
 
-            _parametros = new List<string>() { "@MARCA", "@MODELO", "@COLOR", "@TIPO", "@MATRICULA", "@NUMERO_DE_SEGURO", "@LATITUD", "@LONGITUD" };
-            _valores = new List<string>() { marca, modelo, color, tipo, matricula, numeroSeguro, latitud, longitud };
-
-            conexion.ConsultarVehiculo("SP_INSERTAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
+            conexion.ConsultarVehiculo("SP_INSERTAR_VEHICULO", vehiculo);
         }
 
-        public void UpdateVehiculo(string opcion, string marca, string modelo, int year, string color, double precioDia, string tipo, int capacidadCarga, int pasajeros, string matricula, string numeroSeguro, Byte[] foto, string latitud, string longitud, bool estatus, bool borrado)
+        public Vehiculo Read()
         {
             PatronSingleton();
 
-            _parametros = new List<string>() { "@MARCA", "@MODELO", "@COLOR", "@TIPO", "@MATRICULA", "@NUMERO_DE_SEGURO", "@LATITUD", "@LONGITUD" };
-            _valores = new List<string>() { marca, modelo, color, tipo, matricula, numeroSeguro, latitud, longitud };
+            return conexion.SelectVehiculo();
+        }
 
+        public void Update (Vehiculo vehiculo)
+        {
+            PatronSingleton();
             
-            conexion.ConsultarVehiculo("SP_MODIFICAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
+            conexion.ConsultarVehiculo("SP_MODIFICAR_VEHICULO", vehiculo);
         }
 
-        public void DeleteVehiculo(int ID)
+        public void Delete (int ID)
         {
             PatronSingleton();
 

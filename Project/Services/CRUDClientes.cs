@@ -4,15 +4,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperAlquiler.Entities;
 
 namespace SuperAlquiler.Services
 {
     public class CRUDClientes
     {
         Conexion conexion = null;
-
-        List<string> _parametros = null;
-        List<string> _valores = null;
 
         private void PatronSingleton()
         {
@@ -22,27 +20,28 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void CreateCliente (string cedula, string nombres, string apellidos, string correo, string licencia, string nacionalidad, string tipoSangre, Byte[] fotoCliente, Byte[] fotoCedula, bool estatus, bool borrado)
+        public void Create (Cliente cliente)
+        {
+            PatronSingleton();
+            
+            conexion.ConsultarCliente("SP_INSERTAR_CLIENTES", cliente);
+        }
+
+        public Cliente Read()
         {
             PatronSingleton();
 
-            _parametros = new List<string>() { "@CEDULA", "@NOMBRES", "@APELLIDOS", "@CORREO", "@LICENCIA", "@TIPO_DE_SANGRE" };
-            _valores = new List<string>() { cedula, nombres, apellidos, correo, licencia, tipoSangre };
-
-            conexion.ConsultarCliente("SP_INSERTAR_CLIENTES", _parametros, _valores, fotoCliente, fotoCedula, estatus, borrado);
+            return conexion.SelectCliente();
         }
 
-        public void UpdateCliente(string cedula, string nombres, string apellidos, string correo, string licencia, string nacionalidad, string tipoSangre, Byte[] fotoCliente, Byte[] fotoCedula, bool estatus, bool borrado)
+        public void Update (Cliente cliente)
         {
             PatronSingleton();
 
-            _parametros = new List<string>() { "@CEDULA", "@NOMBRES", "@APELLIDOS", "@CORREO", "@LICENCIA", "@TIPO_DE_SANGRE" };
-            _valores = new List<string>() { cedula, nombres, apellidos, correo, licencia, tipoSangre };
-
-            conexion.ConsultarCliente("SP_MODIFICAR_CLIENTES", _parametros, _valores, fotoCliente, fotoCedula, estatus, borrado);
+            conexion.ConsultarCliente ("SP_MODIFICAR_CLIENTES", cliente);
         }
 
-        public void DeleteCliente (int ID)
+        public void Delete (int ID)
         {
             PatronSingleton();
 

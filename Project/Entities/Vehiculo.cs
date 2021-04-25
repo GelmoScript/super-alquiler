@@ -22,7 +22,7 @@ namespace SuperAlquiler.Entities
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public int Pasajeros { get; set; }
-        public string Foto { get; set; }
+        public byte[] Foto { get; set; }
         public string Ubicacion {
             get
             {

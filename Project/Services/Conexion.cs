@@ -4,15 +4,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperAlquiler.Entities;
 
 namespace SuperAlquiler.Services
 {
-
-
     public class Conexion
     {
         private SqlConnection con = null;
-
+        
         public void Conectar()
         {
             if (con == null)
@@ -21,66 +20,155 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void ConsultarVehiculo(string procedimiento, List<string> parametros, List<string> valores, int year, double precioDia, int capacidadCarga, int pasajeros, Byte[] foto, bool estatus, bool borrado)
+        public Vehiculo ConsultarVehiculo (string procedimiento, Vehiculo vehiculo)
         {
+            vehiculo = new Vehiculo();
+
             Conectar();
 
             SqlCommand cmd = new SqlCommand(procedimiento, con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            for (int i = 0; i < parametros.Count; i++)
-            {
-                cmd.Parameters.AddWithValue(parametros.ElementAt(i), valores.ElementAt(i));
-            }
-
-            cmd.Parameters.AddWithValue("@YEARS", year);
-            cmd.Parameters.AddWithValue("@PRECIO_POR_DIA", precioDia);
-            cmd.Parameters.AddWithValue("@CAPACIDAD_DE_CARGA", capacidadCarga);
-            cmd.Parameters.AddWithValue("@PASAJEROS", pasajeros);
-            cmd.Parameters.AddWithValue("@FOTO", foto);
-            cmd.Parameters.AddWithValue("@ESTATUS", estatus);
-            cmd.Parameters.AddWithValue("@BORRADO", borrado);
+            cmd.Parameters.AddWithValue("@MARCA", vehiculo.Marca);
+            cmd.Parameters.AddWithValue("@MODELO", vehiculo.Modelo);
+            cmd.Parameters.AddWithValue("@YEARS", vehiculo.Year);
+            cmd.Parameters.AddWithValue("@COLOR", vehiculo.Color);
+            cmd.Parameters.AddWithValue("@PRECIO_POR_DIA", vehiculo.PrecioPorDia);
+            cmd.Parameters.AddWithValue("@TIPO", vehiculo.TipoVehiculo);
+            cmd.Parameters.AddWithValue("@CAPACIDAD_DE_CARGA", vehiculo.CapacidadDeCarga);
+            cmd.Parameters.AddWithValue("@PASAJEROS", vehiculo.Pasajeros);
+            cmd.Parameters.AddWithValue("@MATRICULA", vehiculo.Matricula);
+            cmd.Parameters.AddWithValue("@NUMERO_DE_SEGURO", vehiculo.NoSeguro);
+            cmd.Parameters.AddWithValue("@FOTO", vehiculo.Foto);
+            cmd.Parameters.AddWithValue("@LATITUD", vehiculo.Latitud);
+            cmd.Parameters.AddWithValue("@LONGITUD", vehiculo.Longitud);
 
             con.Close();
+
+            return vehiculo;
         }
 
-        public void ConsultarCliente (string procedimiento, List<string> parametros, List<string> valores, Byte[] fotoCliente, Byte[] fotoCedula, bool estatus, bool borrado)
+        public Vehiculo SelectVehiculo ()
         {
+            Vehiculo vehiculo = new Vehiculo();
+
+            Conectar();
+            
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM VEHICULOS", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                vehiculo.Marca = reader.GetString("MARCA");
+                vehiculo.Modelo = reader.GetString("MODELO");
+                vehiculo.Year = reader.GetInt32("YEARS");
+                vehiculo.Color = reader.GetString("COLOR");
+                vehiculo.PrecioPorDia = reader.GetDouble("PRECIO_POR_DIA");
+                vehiculo.TipoVehiculo.Nombre = reader.GetString("TIPO");
+                vehiculo.CapacidadDeCarga = reader.GetInt32("CAPACIDAD_DE_CARGA");
+                vehiculo.Pasajeros = reader.GetInt32("PASAJEROS");
+                vehiculo.Matricula = reader.GetString("MATRICULA");
+                vehiculo.NoSeguro = reader.GetString("NUMERO_DE_SEGURO");
+                vehiculo.Foto = (byte[]) reader["FOTO"];
+                vehiculo.Latitud = reader.GetDouble("LATITUD");
+                vehiculo.Longitud = reader.GetDouble("LONGITUD");
+            }
+
+            return vehiculo;
+        }
+
+        public Cliente ConsultarCliente (string procedimiento, Cliente cliente)
+        {
+            cliente = new Cliente();
+
             Conectar();
 
             SqlCommand cmd = new SqlCommand(procedimiento, con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            for (int i = 0; i < parametros.Count; i++)
-            {
-                cmd.Parameters.AddWithValue(parametros.ElementAt(i), valores.ElementAt(i));
-            }
-
-            cmd.Parameters.AddWithValue("@FOTO_CLIENTE", fotoCliente);
-            cmd.Parameters.AddWithValue("@FOTO_CEDULA", fotoCedula);
-            cmd.Parameters.AddWithValue("@ESTATUS", estatus);
-            cmd.Parameters.AddWithValue("@BORRADO", borrado);
+            cmd.Parameters.AddWithValue("@CEDULA", cliente.Cedula);
+            cmd.Parameters.AddWithValue("@NOMBRES", cliente.Nombre);
+            cmd.Parameters.AddWithValue("@APELLIDOS", cliente.Apellido);
+            cmd.Parameters.AddWithValue("@CORREO", cliente.Correo);
+            cmd.Parameters.AddWithValue("@LICENCIA", cliente.Licencia);
+            cmd.Parameters.AddWithValue("@NACIONALIDAD", cliente.Nacionalidad);
+            cmd.Parameters.AddWithValue("@TIPO_DE_SANGRE", cliente.TipoDeSangre);
+            cmd.Parameters.AddWithValue("@FOTO_CLIENTE", cliente.FotoLicencia);
+            cmd.Parameters.AddWithValue("@FOTO_CEDULA", cliente.Foto);
 
             con.Close();
+
+            return cliente;
         }
 
-        public void ConsultarReserva(List<string> parametros, int vehiculo, int cliente, DateTime fechaInicio, DateTime fechaFin, bool borrado)
+        public Cliente SelectCliente()
         {
+            Cliente cliente = new Cliente();
+
+            Conectar();
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM CLIENTES", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cliente.Cedula = reader.GetString("CEDULA");
+                cliente.Nombre = reader.GetString("NOMBRES");
+                cliente.Apellido = reader.GetString("APELLIDOS");
+                cliente.Correo = reader.GetString("CORREO");
+                cliente.Licencia = reader.GetString("LICENCIA");
+                cliente.Nacionalidad = reader.GetString("NACIONALIDAD");
+                cliente.TipoDeSangre = reader.GetString("TIPO_DE_SANGRE");
+                cliente.FotoLicencia = (byte[])reader["FOTO_CLIENTE"];
+                cliente.Foto = (byte[])reader["FOTO_CEDULA"];
+            }
+
+            return cliente;
+        }
+
+        public Reserva ConsultarReserva (Reserva reserva)
+        {
+            reserva = new Reserva();
+
             Conectar();
 
             SqlCommand cmd = new SqlCommand("SP_INSERTAR_RESERVA", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            cmd.Parameters.AddWithValue("@VEHICULO", vehiculo);
-            cmd.Parameters.AddWithValue("@CLIENTE", cliente);
-            cmd.Parameters.AddWithValue("@FECHA_INICIO", fechaInicio);
-            cmd.Parameters.AddWithValue("@FECHA_FIN", fechaFin);
-            cmd.Parameters.AddWithValue("@BORRADO", borrado);
+            cmd.Parameters.AddWithValue("@VEHICULO", reserva.Vehiculo);
+            cmd.Parameters.AddWithValue("@CLIENTE", reserva.Cliente);
+            cmd.Parameters.AddWithValue("@FECHA_INICIO", reserva.FechaInicio);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", reserva.FechaFin);
 
             con.Close();
+
+            return reserva;
+        }
+
+        public Reserva SelectReserva()
+        {
+            Reserva reserva = new Reserva();
+
+            Conectar();
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM RESERVAS", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                reserva.Vehiculo = (Vehiculo) reader["VEHICULO"];
+                reserva.Cliente = (Cliente) reader["CLIENTE"];
+                reserva.FechaInicio = reader.GetDateTime("FECHA_INICIO");
+                reserva.FechaFin = reader.GetDateTime("FECHA_FIN");
+            }
+
+            return reserva;
         }
 
         public void CrearFactura (int reserva, double monto)

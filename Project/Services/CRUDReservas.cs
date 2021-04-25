@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperAlquiler.Entities;
 
 namespace SuperAlquiler.Services
 {
     public class CRUDReservas
     {
         Conexion conexion = null;
-
-        List<string> _parametros = null;
 
         private void PatronSingleton()
         {
@@ -19,16 +18,21 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void CreateReserva(int vehiculo, int cliente, DateTime fechaInicio, DateTime fechaFin, bool borrado)
+        public void Create (Reserva reserva)
         {
             PatronSingleton();
 
-            _parametros = new List<string>() { "@VEHICULO", "@CLIENTE", "@FECHA_INICIO", "@FECHA_FIN", "@BORRADO" };
-
-            conexion.ConsultarReserva(_parametros, vehiculo, cliente, fechaInicio, fechaFin, borrado);
+            conexion.ConsultarReserva (reserva);
         }
 
-        public void DeleteReserva(int ID)
+        public Reserva Read()
+        {
+            PatronSingleton();
+
+            return conexion.SelectReserva();
+        }
+
+        public void Delete (int ID)
         {
             PatronSingleton();
 
