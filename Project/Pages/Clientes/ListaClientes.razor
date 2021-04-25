@@ -1,0 +1,69 @@
+﻿
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Nombre Completo</th>
+            <th>Cedula</th>
+            <th>Licencia</th>
+            <th>Correo</th>
+            <th>Nacionalidad</th>
+            <th>Tipo de Sangre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_clientes == null || _clientes.Count == 0)
+        {
+            <tr>
+                <td colspan="7">No hay Clientes</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var cliente in _clientes)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.NombreCompleto</td>
+                    <td>@cliente.Cedula</td>
+                    <td>@cliente.Licencia</td>
+                    <td>@cliente.Correo</td>
+                    <td>@cliente.Nacionalidad</td>
+                    <td>@cliente.TipoDeSangre</td>
+                    <td>
+                        <button class="btn btn-primary"
+                                @onclick="async () => { await Editar_Click(cliente.Id); }">
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger"
+                                @onclick="async () => { await Eliminar_Click(cliente.Id); }">
+                            <span class="oi oi-x"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+
+    private List<Cliente> _clientes = DatosSemilla.Instancia.Clientes;
+
+    [Parameter]
+    public EventCallback<int> ParaEditarCliente { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ParaEliminarCliente { get; set; }
+
+    protected async Task Editar_Click(int id)
+    {
+        await ParaEditarCliente.InvokeAsync(id);
+    }
+
+    protected async Task Eliminar_Click(int id)
+    {
+        await ParaEliminarCliente.InvokeAsync(id);
+    }
+}
