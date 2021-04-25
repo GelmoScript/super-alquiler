@@ -115,8 +115,6 @@ namespace SuperAlquiler.Services
         {
             Conectar();
 
-            string procedimiento, campoID;
-
             SqlCommand cmd = new SqlCommand("SP_ELIMINAR_VEHICULOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
@@ -130,8 +128,6 @@ namespace SuperAlquiler.Services
         public void DeleteCliente(int ID)
         {
             Conectar();
-
-            string procedimiento, campoID;  
 
             SqlCommand cmd = new SqlCommand("SP_ELIMINAR_CLIENTES", con);
             cmd.CommandType = CommandType.StoredProcedure;
