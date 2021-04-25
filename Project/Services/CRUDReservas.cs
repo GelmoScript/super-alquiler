@@ -25,7 +25,7 @@ namespace SuperAlquiler.Services
             conexion.ConsultarReserva (reserva);
         }
 
-        public Reserva Read()
+        public List<Reserva> Read()
         {
             PatronSingleton();
 

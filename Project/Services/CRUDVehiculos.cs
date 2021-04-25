@@ -28,7 +28,7 @@ namespace SuperAlquiler.Services
             conexion.ConsultarVehiculo("SP_INSERTAR_VEHICULO", vehiculo);
         }
 
-        public Vehiculo Read()
+        public List<Vehiculo> Read()
         {
             PatronSingleton();
 

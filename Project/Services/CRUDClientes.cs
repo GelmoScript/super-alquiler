@@ -27,7 +27,7 @@ namespace SuperAlquiler.Services
             conexion.ConsultarCliente("SP_INSERTAR_CLIENTES", cliente);
         }
 
-        public Cliente Read()
+        public List<Cliente> Read()
         {
             PatronSingleton();
 

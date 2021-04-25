@@ -49,7 +49,7 @@ namespace SuperAlquiler.Services
             return vehiculo;
         }
 
-        public Vehiculo SelectVehiculo ()
+        public List<Vehiculo> SelectVehiculo ()
         {
             Vehiculo vehiculo = new Vehiculo();
 
@@ -76,7 +76,9 @@ namespace SuperAlquiler.Services
                 vehiculo.Longitud = reader.GetDouble("LONGITUD");
             }
 
-            return vehiculo;
+            List<Vehiculo> lista = new() { vehiculo };
+
+            return lista;
         }
 
         public Cliente ConsultarCliente (string procedimiento, Cliente cliente)
@@ -104,7 +106,7 @@ namespace SuperAlquiler.Services
             return cliente;
         }
 
-        public Cliente SelectCliente()
+        public List<Cliente> SelectCliente()
         {
             Cliente cliente = new Cliente();
 
@@ -127,7 +129,9 @@ namespace SuperAlquiler.Services
                 cliente.Foto = (byte[])reader["FOTO_CEDULA"];
             }
 
-            return cliente;
+            List<Cliente> lista = new() { cliente };
+
+            return lista;
         }
 
         public Reserva ConsultarReserva (Reserva reserva)
@@ -150,7 +154,7 @@ namespace SuperAlquiler.Services
             return reserva;
         }
 
-        public Reserva SelectReserva()
+        public List<Reserva> SelectReserva()
         {
             Reserva reserva = new Reserva();
 
@@ -168,7 +172,9 @@ namespace SuperAlquiler.Services
                 reserva.FechaFin = reader.GetDateTime("FECHA_FIN");
             }
 
-            return reserva;
+            List<Reserva> lista = new() { reserva };
+
+            return lista;
         }
 
         public void CrearFactura (int reserva, double monto)
