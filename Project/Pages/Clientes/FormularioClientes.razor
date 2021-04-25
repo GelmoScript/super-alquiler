@@ -1,0 +1,154 @@
+﻿@if (Modo != null)
+{
+    <EditForm Model="@Cliente">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label>
+                        Nombre
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="nombre" @bind-Value="Cliente.Nombre" />
+                        }else
+                        {
+                            <InputText class="form-control" id="nombre" @bind-Value="Cliente.Nombre" />
+                        }
+                    </label>
+                    <label>
+                        Apellido
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="apellido" @bind-Value="Cliente.Apellido" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="apellido" @bind-Value="Cliente.Apellido" />
+                        }
+                    </label>
+                    <label>
+                        Cedula
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="cedula" @bind-Value="Cliente.Cedula" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="cedula" @bind-Value="Cliente.Cedula" />
+                        }
+                    </label>
+                    <label>
+                        Licencia
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="licencia" @bind-Value="Cliente.Licencia" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="licencia" @bind-Value="Cliente.Licencia" />
+                        }
+                    </label>
+                    <label>
+                        Nacionalidad
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="nacionalidad" @bind-Value="Cliente.Nacionalidad" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="nacionalidad" @bind-Value="Cliente.Nacionalidad" />
+                        }
+                    </label>
+                </div>
+                <div class="col">
+                    <label>
+                        Correo
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="correo" @bind-Value="Cliente.Correo" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="correo" @bind-Value="Cliente.Correo" />
+                        }
+                    </label>
+                    <label>
+                        Tipo de Sangre
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Cliente.TipoDeSangre" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="tipo-de-sangre" @bind-Value="Cliente.TipoDeSangre" />
+                        }
+                    </label>
+                    <label>
+                        Foto
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="foto" @bind-Value="Cliente.Foto" />
+                        }
+                    </label>
+                    <label>
+                        Foto de Licencia
+                        @if (ModoEliminar)
+                        {
+                            <InputText class="form-control deshabilitado" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                        }
+                        else
+                        {
+                            <InputText class="form-control" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                        }
+                    </label>
+                    <div class="botones">
+
+                        @switch (Modo)
+                        {
+                            case FormModes.Editar:
+                                <button class="btn btn-outline-dark">Editar</button>
+                                break;
+                            case FormModes.Agregar:
+                                <button class="btn btn-outline-dark">Agregar</button>
+                                break;
+                            case FormModes.Eliminar:
+                                <button class="btn btn-danger">Eliminar</button>
+                                break;
+                            default:
+                                break;
+                        }
+                        <button class="btn btn-outline-danger" @onclick="async () => { await Modo_Click(null); }">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+@code {
+    [Parameter]
+    public Cliente Cliente { get; set; }
+
+    protected bool ModoEliminar
+    {
+        get
+        {
+            return Modo == FormModes.Eliminar;
+        }
+    }
+
+    [Parameter]
+    public FormModes? Modo { get; set; }
+
+    [Parameter]
+    public EventCallback<FormModes?> ParaCambiarModo { get; set; }
+
+    protected async Task Modo_Click(FormModes? modo)
+    {
+        await ParaCambiarModo.InvokeAsync(modo);
+    }
+}

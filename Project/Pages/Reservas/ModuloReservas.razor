@@ -1,0 +1,48 @@
+﻿@page "/reservas"
+<h3>Modulo Reservas</h3>
+<button class="btn btn-success" @onclick="() => { AsignarModo(FormModes.Agregar); }">Agregar</button>
+@if (Modo != null)
+{
+    <button class="btn btn-danger" @onclick="LimpiarFormulario">Borrar</button>
+}
+<FormularioReservas Modo="@Modo" Reserva="@reservaActual" ParaCambiarModo="AsignarModo" />
+<ListaReservas ParaEditarReserva="EditarReserva" ParaEliminarReserva="EliminarReserva" />
+
+@code {
+    private FormModes? Modo = null;
+    private Reserva reservaActual;
+
+    protected override void OnInitialized()
+    {
+        reservaActual = new Reserva();
+    }
+
+    void AsignarModo(FormModes? modo)
+    {
+        Modo = modo;
+    }
+
+    protected void EditarReserva(int id)
+    {
+        ObtenerReservaPorId(id);
+        AsignarModo(FormModes.Editar);
+    }
+
+    protected void EliminarReserva(int id)
+    {
+        ObtenerReservaPorId(id);
+        AsignarModo(FormModes.Eliminar);
+    }
+
+    protected void LimpiarFormulario()
+    {
+        reservaActual = new Reserva();
+    }
+
+    protected void ObtenerReservaPorId(int id)
+    {
+        var reservas = DatosSemilla.Instancia.Reservas;
+        var reserva = reservas.FirstOrDefault(r => r.Id == id);
+        reservaActual = reserva.Clonar();
+    }
+}

@@ -1,0 +1,62 @@
+﻿<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Vehiculo</th>
+            <th>Cliente</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_reservas == null || _reservas.Count == 0)
+        {
+            <tr>
+                <td colspan="6">No hay reservas</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var reserva in _reservas)
+            {
+                <tr>
+                    <td>@reserva.Id</td>
+                    <td>@reserva.Vehiculo.Id</td>
+                    <td>@reserva.Cliente.Id</td>
+                    <td>@reserva.FechaInicio</td>
+                    <td>@reserva.FechaFin</td>
+                    <td>
+                        <button class="btn btn-primary"
+                                @onclick="async () => { await Editar_Click(reserva.Id); }">
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger"
+                                @onclick="async () => { await Eliminar_Click(reserva.Id); }">
+                            <span class="oi oi-x"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@code {
+    private List<Reserva> _reservas = DatosSemilla.Instancia.Reservas;
+
+    [Parameter]
+    public EventCallback<int> ParaEditarReserva { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ParaEliminarReserva { get; set; }
+
+    protected async Task Editar_Click(int id)
+    {
+        await ParaEditarReserva.InvokeAsync(id);
+    }
+
+    protected async Task Eliminar_Click(int id)
+    {
+        await ParaEliminarReserva.InvokeAsync(id);
+    }
+}

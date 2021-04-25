@@ -1,0 +1,124 @@
+﻿@if (Modo != null)
+{
+    <EditForm Model="@Reserva">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label>
+                        Vehiculo
+                        @if (ModoEliminar)
+                        {
+                            <InputSelect class="form-control deshabilitado" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
+                                <option value="0">Selecciona un vehiculo</option>
+                                @foreach (var vehiculo in DatosSemilla.Instancia.Vehiculos)
+                                {
+                                    <option value="@vehiculo.Id">@vehiculo.ToString()</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            <InputSelect class="form-control" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
+                                <option value="0">Selecciona un vavehiculolor</option>
+                                @foreach (var vehiculo in DatosSemilla.Instancia.Vehiculos)
+                                {
+                                    <option value="@vehiculo.Id">@vehiculo.ToString()</option>
+                                }
+                            </InputSelect>
+                        }
+                    </label>
+                    <label>
+                        Clientes
+                        @if (ModoEliminar)
+                        {
+                            <InputSelect class="form-control deshabilitado" id="cliente" @bind-Value="Reserva.Cliente.Id">
+                                <option value="0">Selecciona un cliente</option>
+                                @foreach (var cliente in DatosSemilla.Instancia.Clientes)
+                                        {
+                                    <option value="@cliente.Id">@cliente.ToString()</option>
+                                        }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            <InputSelect class="form-control" id="cliente" @bind-Value="Reserva.Cliente.Id">
+                                <option value="0">Selecciona un cliente</option>
+                                @foreach (var cliente in DatosSemilla.Instancia.Clientes)
+                                        {
+                                    <option value="@cliente.Id">@cliente.ToString()</option>
+                                        }
+                            </InputSelect>
+                        }
+                    </label>
+                </div>
+                <div class="col">
+                    <label>
+                        Fecha de Inicio
+                        @if (ModoEliminar)
+                        {
+                            <InputDate class="form-control deshabilitado" id="fecha-inicio" @bind-Value="Reserva.FechaInicio" />
+                        }
+                        else
+                        {
+                            <InputDate class="form-control" id="fecha-inicio" @bind-Value="Reserva.FechaInicio" />
+                        }
+                    </label>
+                    <label>
+                        Fecha de Fin
+                        @if (ModoEliminar)
+                        {
+                            <InputDate class="form-control deshabilitado" id="fecha-fin" @bind-Value="Reserva.FechaFin" />
+                        }
+                        else
+                        {
+                            <InputDate class="form-control" id="fecha-fin" @bind-Value="Reserva.FechaFin" />
+                        }
+                    </label>
+      
+                    <div class="botones">
+
+                        @switch (Modo)
+                        {
+                            case FormModes.Editar:
+                                <button class="btn btn-outline-dark">Editar</button>
+                                break;
+                            case FormModes.Agregar:
+                                <button class="btn btn-outline-dark">Agregar</button>
+                                break;
+                            case FormModes.Eliminar:
+                                <button class="btn btn-danger">Eliminar</button>
+                                break;
+                            default:
+                                break;
+                        }
+                        <button class="btn btn-outline-danger" @onclick="async () => { await Modo_Click(null); }">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public Reserva Reserva { get; set; }
+
+    protected bool ModoEliminar
+    {
+        get
+        {
+            return Modo == FormModes.Eliminar;
+        }
+    }
+
+    [Parameter]
+    public FormModes? Modo { get; set; }
+
+    [Parameter]
+    public EventCallback<FormModes?> ParaCambiarModo { get; set; }
+
+    protected async Task Modo_Click(FormModes? modo)
+    {
+        await ParaCambiarModo.InvokeAsync(modo);
+    }
+}
