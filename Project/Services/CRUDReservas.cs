@@ -32,7 +32,7 @@ namespace SuperAlquiler.Services
         {
             PatronSingleton();
 
-            conexion.DeleteVehiculoClienteReserva("Reserva", ID);
+            conexion.DeleteReserva(ID);
         }
     }
 }

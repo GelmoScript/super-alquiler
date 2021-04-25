@@ -20,29 +20,32 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public void CreateUpdateVehiculo(string opcion, string marca, string modelo, int year, string color, double precioDia, string tipo, int capacidadCarga, int pasajeros, string matricula, string numeroSeguro, Byte[] foto, string latitud, string longitud, bool estatus, bool borrado)
+        public void CreateVehiculo(string marca, string modelo, int year, string color, double precioDia, string tipo, int capacidadCarga, int pasajeros, string matricula, string numeroSeguro, Byte[] foto, string latitud, string longitud, bool estatus, bool borrado)
         {
             PatronSingleton();
 
             _parametros = new List<string>() { "@MARCA", "@MODELO", "@COLOR", "@TIPO", "@MATRICULA", "@NUMERO_DE_SEGURO", "@LATITUD", "@LONGITUD" };
             _valores = new List<string>() { marca, modelo, color, tipo, matricula, numeroSeguro, latitud, longitud };
 
-            if (opcion.Equals("Insert"))
-            {
-                conexion.ConsultarVehiculo("SP_INSERTAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
-            }
+            conexion.ConsultarVehiculo("SP_INSERTAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
+        }
 
-            else
-            {
-                conexion.ConsultarVehiculo("SP_MODIFICAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
-            }
+        public void UpdateVehiculo(string opcion, string marca, string modelo, int year, string color, double precioDia, string tipo, int capacidadCarga, int pasajeros, string matricula, string numeroSeguro, Byte[] foto, string latitud, string longitud, bool estatus, bool borrado)
+        {
+            PatronSingleton();
+
+            _parametros = new List<string>() { "@MARCA", "@MODELO", "@COLOR", "@TIPO", "@MATRICULA", "@NUMERO_DE_SEGURO", "@LATITUD", "@LONGITUD" };
+            _valores = new List<string>() { marca, modelo, color, tipo, matricula, numeroSeguro, latitud, longitud };
+
+            
+            conexion.ConsultarVehiculo("SP_MODIFICAR_VEHICULO", _parametros, _valores, year, precioDia, capacidadCarga, pasajeros, foto, estatus, borrado);
         }
 
         public void DeleteVehiculo(int ID)
         {
             PatronSingleton();
 
-            conexion.DeleteVehiculoClienteReserva("Vehiculos", ID);
+            conexion.DeleteVehiculo(ID);
         }
     }
 }

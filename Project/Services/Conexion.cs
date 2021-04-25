@@ -34,7 +34,7 @@ namespace SuperAlquiler.Services
                 cmd.Parameters.AddWithValue(parametros.ElementAt(i), valores.ElementAt(i));
             }
 
-            cmd.Parameters.AddWithValue("@AÑO", year);
+            cmd.Parameters.AddWithValue("@YEARS", year);
             cmd.Parameters.AddWithValue("@PRECIO_POR_DIA", precioDia);
             cmd.Parameters.AddWithValue("@CAPACIDAD_DE_CARGA", capacidadCarga);
             cmd.Parameters.AddWithValue("@PASAJEROS", pasajeros);
@@ -83,63 +83,75 @@ namespace SuperAlquiler.Services
             con.Close();
         }
 
-        public void ConsultarFactura (string opcion, int reserva_O_idfactura, double monto)
+        public void CrearFactura (int reserva, double monto)
         {
             Conectar();
 
-            string procedimiento, campo;
-
-            if (opcion.Equals("Insert"))
-            {
-                procedimiento = "SP_INSERTAR_FACTURA";
-                campo = "@RESERVA";
-            }
-
-            else
-            {
-                procedimiento = "SP_PAGAR_FACTURA";
-                campo = "@ID_FACTURA";
-            }
-
-            SqlCommand cmd = new SqlCommand(procedimiento, con);
+            SqlCommand cmd = new SqlCommand("SP_INSERTAR_FACTURA", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            cmd.Parameters.AddWithValue(campo, reserva_O_idfactura);
+            cmd.Parameters.AddWithValue("@RESERVA", reserva);
             cmd.Parameters.AddWithValue("@MONTO_A_PAGAR", monto);
 
             con.Close();
         }
 
-        public void DeleteVehiculoClienteReserva(string opcion, int ID)
+        public void PagarFactura(int FacturaID, double monto)
+        {
+            Conectar();
+
+            SqlCommand cmd = new SqlCommand("SP_PAGAR_FACTURA", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+
+            cmd.Parameters.AddWithValue("@ID_FACTURA", FacturaID);
+            cmd.Parameters.AddWithValue("@MONTO_A_PAGAR", monto);
+
+            con.Close();
+        }
+
+        public void DeleteVehiculo(int ID)
         {
             Conectar();
 
             string procedimiento, campoID;
 
-            if (opcion.Equals("Cliente"))
-            {
-                procedimiento = "SP_ELIMINAR_CLIENTES";
-                campoID = "@ID_CLIENTE";
-            }
-
-            else if (opcion.Equals("Vehiculo"))
-            {
-                procedimiento = "SP_ELIMINAR_VEHICULOS";
-                campoID = "@ID_VEHICULO";
-            }
-
-            else
-            {
-                procedimiento = "SP_ELIMINAR_RESERVA";
-                campoID = "@ID_RESERVAS";
-            }
-
-            SqlCommand cmd = new SqlCommand(procedimiento, con);
+            SqlCommand cmd = new SqlCommand("SP_ELIMINAR_VEHICULOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            cmd.Parameters.AddWithValue(campoID, ID);
+            cmd.Parameters.AddWithValue("@ID_VEHICULO", ID);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public void DeleteCliente(int ID)
+        {
+            Conectar();
+
+            string procedimiento, campoID;  
+
+            SqlCommand cmd = new SqlCommand("SP_ELIMINAR_CLIENTES", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", ID);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public void DeleteReserva(int ID)
+        {
+            Conectar();
+
+            SqlCommand cmd = new SqlCommand("SP_ELIMINAR_RESERVA", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+
+            cmd.Parameters.AddWithValue("@ID_RESERVAS", ID);
 
             cmd.ExecuteNonQuery();
             con.Close();
