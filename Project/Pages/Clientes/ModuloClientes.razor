@@ -1,0 +1,48 @@
+﻿@page "/clientes"
+<h3>Modulo Clientes</h3>
+<button class="btn btn-success" @onclick="() => { AsignarModo(FormModes.Agregar); }">Agregar</button>
+@if (Modo != null) { 
+    <button class="btn btn-danger" @onclick="LimpiarFormulario">Borrar</button>
+}
+<FormularioClientes Modo="@Modo" Cliente="@clienteActual" ParaCambiarModo="AsignarModo"></FormularioClientes>
+<ListaClientes ParaEditarCliente="EditarCliente" ParaEliminarCliente="EliminarCliente"></ListaClientes>
+
+@code {
+
+    private FormModes? Modo = null;
+    private Cliente clienteActual;
+
+    protected override void OnInitialized()
+    {
+        clienteActual = new Cliente();
+    }
+
+    void AsignarModo(FormModes? modo)
+    {
+        Modo = modo;
+    }
+
+    protected void EditarCliente(int id)
+    {
+        ObtenerClientePorId(id);
+        AsignarModo(FormModes.Editar);
+    }
+
+    protected void EliminarCliente(int id)
+    {
+        ObtenerClientePorId(id);
+        AsignarModo(FormModes.Eliminar);
+    }
+
+    protected void LimpiarFormulario()
+    {
+        clienteActual = new Cliente();
+    }
+
+    protected void ObtenerClientePorId(int id)
+    {
+        var clientes = DatosSemilla.Instancia.Clientes;
+        var cliente = clientes.FirstOrDefault(c => c.Id == id);
+        clienteActual = cliente.Clonar();
+    }
+}

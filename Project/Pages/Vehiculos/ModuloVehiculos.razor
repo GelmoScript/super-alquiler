@@ -1,0 +1,48 @@
+﻿@page "/vehiculos"
+<h3>Modulo Vehiculos</h3>
+<button class="btn btn-success" @onclick="() => { AsignarModo(FormModes.Agregar); }">Agregar</button>
+@if (Modo != null)
+{
+    <button class="btn btn-danger" @onclick="LimpiarFormulario">Borrar</button>
+}
+<FormularioVehiculos Modo="@Modo" Vehiculo="@vehiculoActual" ParaCambiarModo="AsignarModo" />
+<ListaVehiculos ParaEditarVehiculo="EditarVehiculo" ParaEliminarVehiculo="EliminarVehiculo" />
+
+@code {
+    private FormModes? Modo = null;
+    private Vehiculo vehiculoActual;
+
+    protected override void OnInitialized()
+    {
+        vehiculoActual = new Vehiculo();
+    }
+
+    void AsignarModo(FormModes? modo)
+    {
+        Modo = modo;
+    }
+
+    protected void EditarVehiculo(int id)
+    {
+        ObtenerVehiculoPorId(id);
+        AsignarModo(FormModes.Editar);
+    }
+
+    protected void EliminarVehiculo(int id)
+    {
+        ObtenerVehiculoPorId(id);
+        AsignarModo(FormModes.Eliminar);
+    }
+
+    protected void LimpiarFormulario()
+    {
+        vehiculoActual = new Vehiculo();
+    }
+
+    protected void ObtenerVehiculoPorId(int id)
+    {
+        var vehiculos = DatosSemilla.Instancia.Vehiculos;
+        var vehiculo = vehiculos.FirstOrDefault(c => c.Id == id);
+        vehiculoActual = vehiculo.Clonar();
+    }
+}

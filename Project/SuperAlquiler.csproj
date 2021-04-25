@@ -4,4 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Seed\" />
+    <Folder Include="Pages\Clientes\" />
+    <Folder Include="Pages\Vehiculos\" />
+    <Folder Include="Pages\Utilidades\" />
+    <Folder Include="Pages\Reservas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Radzen.Blazor" Version="3.2.6" />
+  </ItemGroup>
 </Project>
