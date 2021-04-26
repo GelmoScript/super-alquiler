@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Data;
+@using System.Data.SqlClient;
 @if (Modo != null)
 {
     <EditForm Model="@Vehiculo">
@@ -155,13 +156,13 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <input type="file" />
-                            <InputText class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto" />
+                           
+                            <InputText class="form-control deshabilitado" id="foto" />
                         }
                         else
                         {
-                            <input type="file" />
-                            <InputText class="form-control" id="foto" @bind-Value="Vehiculo.Foto" />
+                           
+                            <InputFile id="foto" @bind-Value="Vehiculo.Foto"/>                           
                         }
                     </label>
                     <div class="botones">
@@ -217,4 +218,5 @@
         Vehiculo.Latitud = posicion.Lat;
         Vehiculo.Longitud = posicion.Lng;
     }
+    SqlConnection conexion = new SqlConnection("server=tcp:gelmo-server.database.windows.net,1433;");
 }

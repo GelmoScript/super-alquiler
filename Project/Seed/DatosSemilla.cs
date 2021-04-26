@@ -61,57 +61,57 @@ namespace SuperAlquiler.Seed
 
         public List<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>
         {
-            new Vehiculo
-            {
-                Id = 1,
-                TipoVehiculo = new TipoVehiculo { Id = 3 } ,
-                Marca = "Nissan",
-                Modelo = "Plop",
-                Year = 2010,
-                Color = "Negro",
-                PrecioPorDia = 1000,
-                CapacidadDeCarga = 23,
-                Pasajeros = 4,
-                Matricula = "12345",
-                NoSeguro = "12345",
-                Foto = "fotovehiculo1",
-                Latitud = 23.894764,
-                Longitud = 23.482638
-            },
-            new Vehiculo
-            {
-                Id = 2,
-                TipoVehiculo = new TipoVehiculo { Id = 2 } ,
-                Marca = "Toyota",
-                Modelo = "Sonata",
-                Year = 2011,
-                Color = "Rojo",
-                PrecioPorDia = 1001,
-                CapacidadDeCarga = 24,
-                Pasajeros = 4,
-                Matricula = "123456",
-                NoSeguro = "123456",
-                Foto = "fotovehiculo2",
-                Latitud = 29.894764,
-                Longitud = 29.482638
-            },
-            new Vehiculo
-            {
-                Id = 3,
-                TipoVehiculo = new TipoVehiculo { Id = 1 } ,
-                Marca = "Audi",
-                Modelo = "IronMan",
-                Year = 2012,
-                Color = "Gris",
-                PrecioPorDia = 1002,
-                CapacidadDeCarga = 23,
-                Pasajeros = 4,
-                Matricula = "123457",
-                NoSeguro = "123457",
-                Foto = "fotovehiculo3",
-                Latitud = 25.894764,
-                Longitud = 25.482638
-            }
+            //new Vehiculo
+            //{
+            //    Id = 1,
+            //    TipoVehiculo = new TipoVehiculo { Id = 3 } ,
+            //    Marca = "Nissan",
+            //    Modelo = "Plop",
+            //    Year = 2010,
+            //    Color = "Negro",
+            //    PrecioPorDia = 1000,
+            //    CapacidadDeCarga = 23,
+            //    Pasajeros = 4,
+            //    Matricula = "12345",
+            //    NoSeguro = "12345",
+            //    Foto = "fotovehiculo1",
+            //    Latitud = 23.894764,
+            //    Longitud = 23.482638
+            //},
+            //new Vehiculo
+            //{
+            //    Id = 2,
+            //    TipoVehiculo = new TipoVehiculo { Id = 2 } ,
+            //    Marca = "Toyota",
+            //    Modelo = "Sonata",
+            //    Year = 2011,
+            //    Color = "Rojo",
+            //    PrecioPorDia = 1001,
+            //    CapacidadDeCarga = 24,
+            //    Pasajeros = 4,
+            //    Matricula = "123456",
+            //    NoSeguro = "123456",
+            //    Foto = "fotovehiculo2",
+            //    Latitud = 29.894764,
+            //    Longitud = 29.482638
+            //},
+            //new Vehiculo
+            //{
+            //    Id = 3,
+            //    TipoVehiculo = new TipoVehiculo { Id = 1 } ,
+            //    Marca = "Audi",
+            //    Modelo = "IronMan",
+            //    Year = 2012,
+            //    Color = "Gris",
+            //    PrecioPorDia = 1002,
+            //    CapacidadDeCarga = 23,
+            //    Pasajeros = 4,
+            //    Matricula = "123457",
+            //    NoSeguro = "123457",
+            //    Foto = "fotovehiculo3",
+            //    Latitud = 25.894764,
+            //    Longitud = 25.482638
+            //}
         };
 
         public List<TipoVehiculo> TipoVehiculo { get; set; } = new List<TipoVehiculo>
