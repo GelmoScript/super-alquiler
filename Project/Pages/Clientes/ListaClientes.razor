@@ -49,7 +49,7 @@
 
 @code {
 
-    private List<Cliente> _clientes = DatosSemilla.Instancia.Clientes;
+    private List<Cliente> _clientes = new List<Cliente>();
 
     [Parameter]
     public EventCallback<int> ParaEditarCliente { get; set; }

@@ -1,0 +1,35 @@
+﻿@page "/reportes/clientes-debedores"
+<h3>Clientes Debedores</h3>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Cedula</th>
+            <th>Cliente</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_clientes == null || _clientes.Count == 0)
+        {
+            <tr>
+                <td colspan="3">No hay clientes mala paga</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var cliente in _clientes)
+            {
+                <tr>
+                    <td>@cliente.Cliente.Cedula</td>
+                    <td>@cliente.Cliente.ToString()</td>
+                    <td>@cliente.Monto</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<ClienteQueDebe> _clientes;
+}

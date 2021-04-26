@@ -41,7 +41,7 @@
 
     protected void ObtenerVehiculoPorId(int id)
     {
-        var vehiculos = DatosSemilla.Instancia.Vehiculos;
+        var vehiculos = new List<Vehiculo>();
         var vehiculo = vehiculos.FirstOrDefault(c => c.Id == id);
         vehiculoActual = vehiculo.Clonar();
     }

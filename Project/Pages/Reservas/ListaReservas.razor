@@ -42,7 +42,7 @@
     </tbody>
 </table>
 @code {
-    private List<Reserva> _reservas = DatosSemilla.Instancia.Reservas;
+    private List<Reserva> _reservas = new List<Reserva>();
 
     [Parameter]
     public EventCallback<int> ParaEditarReserva { get; set; }

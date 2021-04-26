@@ -109,10 +109,10 @@
                         @switch (Modo)
                         {
                             case FormModes.Editar:
-                                <button class="btn btn-outline-dark">Editar</button>
+                                <button class="btn btn-outline-dark" >Editar</button>
                                 break;
                             case FormModes.Agregar:
-                                <button class="btn btn-outline-dark">Agregar</button>
+                                <button class="btn btn-outline-dark" >Agregar</button>
                                 break;
                             case FormModes.Eliminar:
                                 <button class="btn btn-danger">Eliminar</button>
@@ -130,6 +130,7 @@
 
 
 @code {
+
     [Parameter]
     public Cliente Cliente { get; set; }
 
@@ -151,4 +152,5 @@
     {
         await ParaCambiarModo.InvokeAsync(modo);
     }
+
 }

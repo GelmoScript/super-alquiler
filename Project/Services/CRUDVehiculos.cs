@@ -76,7 +76,7 @@ namespace SuperAlquiler.Services
                 vehiculo.Year = reader.GetInt32("YEARS");
                 vehiculo.Color = reader.GetString("COLOR");
                 vehiculo.PrecioPorDia = reader.GetDouble("PRECIO_POR_DIA");
-                vehiculo.TipoVehiculo.Nombre = reader.GetString("TIPO");
+                vehiculo.TipoVehiculo = reader.GetString("TIPO");
                 vehiculo.CapacidadDeCarga = reader.GetInt32("CAPACIDAD_DE_CARGA");
                 vehiculo.Pasajeros = reader.GetInt32("PASAJEROS");
                 vehiculo.Matricula = reader.GetString("MATRICULA");

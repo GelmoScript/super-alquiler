@@ -1,0 +1,39 @@
+﻿@page "/reportes/vehiculos-por-fecha"
+<h3>Vehiculos por fecha</h3>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Color</th>
+            <th>Año</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_vehiculos == null || _vehiculos.Count == 0)
+        {
+            <tr>
+                <td colspan="5">No hay vehiculos</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var vehiculo in _vehiculos)
+            {
+                <tr>
+                    <td>@vehiculo.Id</td>
+                    <td>@vehiculo.Marca</td>
+                    <td>@vehiculo.Modelo</td>
+                    <td>@vehiculo.Year</td>
+                    <td>@vehiculo.Color</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Vehiculo> _vehiculos = new List<Vehiculo>();
+}

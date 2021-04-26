@@ -50,8 +50,9 @@
 </table>
 
 @code {
-    private List<Vehiculo> _vehiculos;
 
+    private List<Vehiculo> _vehiculos = new List<Vehiculo>();
+    
     [Parameter]
     public EventCallback<int> ParaEditarVehiculo { get; set; }
 

@@ -1,0 +1,37 @@
+﻿@page "/reportes/beneficios-por-vehiculos"
+<h3>Reservas por vehiculos</h3>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Vehiculo</th>
+            <th>Reservas</th>
+            <th>Dinero Facturado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_vehiculos == null || _vehiculos.Count == 0)
+        {
+            <tr>
+                <td colspan="5">No hay vehiculos</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var vehiculo in _vehiculos)
+            {
+                <tr>
+                    <td>@vehiculo.Vehiculo.ToString()</td>
+                    <td>@vehiculo.Reservas</td>
+                    <td>@vehiculo.DineroFacturado</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+
+    private List<ReservaPorVehiculo> _vehiculos;
+
+}

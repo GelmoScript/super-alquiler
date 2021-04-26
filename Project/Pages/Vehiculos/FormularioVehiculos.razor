@@ -99,23 +99,11 @@
                         Tipo de Vehiculo
                         @if (ModoEliminar)
                         {
-                            <InputSelect class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo.Id">
-                                <option value="0">Selecciona un valor</option>
-                                @foreach (var tipo in DatosSemilla.Instancia.TipoVehiculo)
-                                        {
-                                    <option value="@tipo.Id">@tipo.Nombre</option>
-                                        }
-                            </InputSelect>
+                            <InputText class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo"/>
                         }
                         else
                         {
-                            <InputSelect class="form-control" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo.Id">
-                                <option value="0">Selecciona un valor</option>
-                                @foreach (var tipo in DatosSemilla.Instancia.TipoVehiculo)
-                                        {
-                                    <option value="@tipo.Id">@tipo.Nombre</option>
-                                        }
-                            </InputSelect>
+                            <InputText class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo" />
                         }
                     </label>
                     <label>
@@ -155,11 +143,13 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <InputFile class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto" />
+                           
+                            <InputField class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto"/>
                         }
                         else
                         {
-                            <InputFile class="form-control" id="foto" @bind-Value="Vehiculo.Foto" />
+                           
+                            <InputFile id="foto" @bind-Value="Vehiculo.Foto"/>                           
                         }
                     </label>
                     <div class="botones">
@@ -188,6 +178,7 @@
 }
 
 @code {
+
     [Parameter]
     public Vehiculo Vehiculo { get; set; }
 
@@ -215,4 +206,5 @@
         Vehiculo.Latitud = Convert.ToDecimal(posicion.Lat);
         Vehiculo.Longitud = Convert.ToDecimal(posicion.Lng);
     }
+   
 }
