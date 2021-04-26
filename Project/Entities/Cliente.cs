@@ -10,8 +10,8 @@ namespace SuperAlquiler.Entities
         public string Licencia { get; set; }
         public string Nacionalidad { get; set; }
         public string TipoDeSangre { get; set; }
-        public string Foto { get; set; }
-        public string FotoLicencia { get; set; }
+        public byte[] Foto { get; set; }
+        public byte[] FotoLicencia { get; set; }
         public string NombreCompleto
         {
             get

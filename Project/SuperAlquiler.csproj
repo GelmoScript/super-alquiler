@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Seed\" />
     <Folder Include="Pages\Clientes\" />
     <Folder Include="Pages\Vehiculos\" />
