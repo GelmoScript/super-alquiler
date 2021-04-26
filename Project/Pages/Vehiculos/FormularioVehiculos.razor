@@ -155,10 +155,12 @@
                         Foto
                         @if (ModoEliminar)
                         {
+                            <input type="file" />
                             <InputText class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto" />
                         }
                         else
                         {
+                            <input type="file" />
                             <InputText class="form-control" id="foto" @bind-Value="Vehiculo.Foto" />
                         }
                     </label>
