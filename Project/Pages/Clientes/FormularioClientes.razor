@@ -86,22 +86,22 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <InputText class="form-control deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
+                            <InputFile class="form-control deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
                         }
                         else
                         {
-                            <InputText class="form-control" id="foto" @bind-Value="Cliente.Foto" />
+                            <InputFile class="form-control" id="foto" @bind-Value="Cliente.Foto" />
                         }
                     </label>
                     <label>
                         Foto de Licencia
                         @if (ModoEliminar)
                         {
-                            <InputText class="form-control deshabilitado" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                            <InputFile class="form-control deshabilitado" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
                         }
                         else
                         {
-                            <InputText class="form-control" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                            <InputFile class="form-control" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
                         }
                     </label>
                     <div class="botones">

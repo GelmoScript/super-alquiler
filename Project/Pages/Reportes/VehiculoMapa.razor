@@ -1,4 +1,5 @@
-﻿@page "/reportes/vehiculos-en-mapa"
+﻿@using SuperAlquiler.Services
+@page "/reportes/vehiculos-en-mapa"
 <h3>Vehiculos en mapa</h3>
 
 @if (vehiculo != null)
@@ -33,7 +34,7 @@
     protected override void OnInitialized()
     {
         id = "";
-        var vehiculos = DatosSemilla.Instancia.Vehiculos;
+        var vehiculos = new List<Vehiculo>();
         marcadores = new List<Marcador>();
         foreach (var vehiculo in vehiculos)
         {
@@ -48,9 +49,11 @@
         }
     }
 
+
     void ObtenerVehiculo(int id)
     {
-        vehiculo = DatosSemilla.Instancia.Vehiculos.FirstOrDefault(vehiculo => vehiculo.Id == id);
+        CRUDVehiculos vehiculos = new CRUDVehiculos();
+        vehiculo = vehiculos.SelectByID(id);
     }
 
 }

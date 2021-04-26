@@ -41,7 +41,7 @@
 
     protected void ObtenerClientePorId(int id)
     {
-        var clientes = DatosSemilla.Instancia.Clientes;
+        var clientes = new List<Cliente>();
         var cliente = clientes.FirstOrDefault(c => c.Id == id);
         clienteActual = cliente.Clonar();
     }

@@ -41,7 +41,7 @@
 
     protected void ObtenerReservaPorId(int id)
     {
-        var reservas = DatosSemilla.Instancia.Reservas;
+        var reservas = new List<Reserva>();
         var reserva = reservas.FirstOrDefault(r => r.Id == id);
         reservaActual = reserva.Clonar();
     }
