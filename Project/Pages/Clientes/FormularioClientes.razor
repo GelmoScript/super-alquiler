@@ -86,11 +86,11 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <InputFile class="form-control deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
+                            <InputFile class="deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
                         }
                         else
                         {
-                            <InputFile class="form-control" id="foto" @bind-Value="Cliente.Foto" />
+                            <InputFile id="foto" @bind-Value="Cliente.Foto" />
                         }
                     </label>
                     <label>
@@ -101,7 +101,7 @@
                         }
                         else
                         {
-                            <InputFile class="form-control" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                            <InputFile  id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
                         }
                     </label>
                     <div class="botones">
@@ -109,13 +109,13 @@
                         @switch (Modo)
                         {
                             case FormModes.Editar:
-                                <button class="btn btn-outline-dark" >Editar</button>
+                                <button class="btn btn-outline-dark" @onclick="Editar" >Editar</button>
                                 break;
                             case FormModes.Agregar:
-                                <button class="btn btn-outline-dark" >Agregar</button>
+                                <button class="btn btn-outline-dark" @onclick="Agregar" >Agregar</button>
                                 break;
                             case FormModes.Eliminar:
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
                                 break;
                             default:
                                 break;
@@ -148,9 +148,30 @@
     [Parameter]
     public EventCallback<FormModes?> ParaCambiarModo { get; set; }
 
+    [Parameter]
+    public EventCallback<FormModes?> CambioRealizado { get; set; }
+
     protected async Task Modo_Click(FormModes? modo)
     {
         await ParaCambiarModo.InvokeAsync(modo);
     }
 
+    async Task Agregar()
+    {
+        CRUDClientes crudClientes = new CRUDClientes();
+        crudClientes.Create(Cliente);
+        await CambioRealizado.InvokeAsync();
+    }
+    async Task Editar()
+    {
+        CRUDClientes crudClientes = new CRUDClientes();
+        crudClientes.Update(Cliente);
+        await CambioRealizado.InvokeAsync();
+    }
+    async Task Eliminar()
+    {
+        CRUDClientes crudClientes = new CRUDClientes();
+        crudClientes.Delete(Cliente.Id);
+        await CambioRealizado.InvokeAsync();
+    }
 }

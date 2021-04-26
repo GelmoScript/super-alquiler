@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_clientes == null || _clientes.Count == 0)
+        @if (Clientes == null || Clientes.Count == 0)
         {
             <tr>
                 <td colspan="7">No hay Clientes</td>
@@ -21,7 +21,7 @@
         }
         else
         {
-            @foreach (var cliente in _clientes)
+            @foreach (var cliente in Clientes)
             {
                 <tr>
                     <td>@cliente.Id</td>
@@ -49,13 +49,15 @@
 
 @code {
 
-    private List<Cliente> _clientes = new List<Cliente>();
+    [Parameter]
+    public List<Cliente> Clientes{ get; set; }
 
     [Parameter]
     public EventCallback<int> ParaEditarCliente { get; set; }
 
     [Parameter]
     public EventCallback<int> ParaEliminarCliente { get; set; }
+
 
     protected async Task Editar_Click(int id)
     {
@@ -66,4 +68,6 @@
     {
         await ParaEliminarCliente.InvokeAsync(id);
     }
+
+  
 }

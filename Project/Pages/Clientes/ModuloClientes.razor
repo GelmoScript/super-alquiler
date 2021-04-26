@@ -4,17 +4,19 @@
 @if (Modo != null) { 
     <button class="btn btn-danger" @onclick="LimpiarFormulario">Borrar</button>
 }
-<FormularioClientes Modo="@Modo" Cliente="@clienteActual" ParaCambiarModo="AsignarModo"></FormularioClientes>
-<ListaClientes ParaEditarCliente="EditarCliente" ParaEliminarCliente="EliminarCliente"></ListaClientes>
+<FormularioClientes CambioRealizado="Refrescar" Modo="@Modo" Cliente="@clienteActual" ParaCambiarModo="AsignarModo"></FormularioClientes>
+<ListaClientes Clientes="_clientes" ParaEditarCliente="EditarCliente" ParaEliminarCliente="EliminarCliente"></ListaClientes>
 
 @code {
 
     private FormModes? Modo = null;
     private Cliente clienteActual;
+    private List<Cliente> _clientes;
 
     protected override void OnInitialized()
     {
         clienteActual = new Cliente();
+        Refrescar();
     }
 
     void AsignarModo(FormModes? modo)
@@ -41,8 +43,12 @@
 
     protected void ObtenerClientePorId(int id)
     {
-        var clientes = new List<Cliente>();
-        var cliente = clientes.FirstOrDefault(c => c.Id == id);
-        clienteActual = cliente.Clonar();
+        CRUDClientes crudClientes = new CRUDClientes();
+        clienteActual = crudClientes.SelectByID(id);
+    }
+    void Refrescar()
+    {
+        CRUDClientes crudClientes = new CRUDClientes();
+        _clientes = crudClientes.Read();
     }
 }
