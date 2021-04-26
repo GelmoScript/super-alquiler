@@ -11,6 +11,7 @@
     <Folder Include="Pages\Vehiculos\" />
     <Folder Include="Pages\Utilidades\" />
     <Folder Include="Pages\Reservas\" />
+    <Folder Include="Pages\Reportes\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Radzen.Blazor" Version="3.2.6" />

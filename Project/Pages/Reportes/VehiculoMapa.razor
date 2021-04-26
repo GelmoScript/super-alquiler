@@ -1,0 +1,56 @@
+﻿@page "/reportes/vehiculos-en-mapa"
+<h3>Vehiculos en mapa</h3>
+
+@if (vehiculo != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@vehiculo.ToString()</h5>
+                        <p class="card-text">@vehiculo.Year</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    
+}
+
+<Mapa Marcadores="marcadores" Bloqueado="true" VehiculoSeleccionado="ObtenerVehiculo" Zoom="4"/>
+
+
+@code {
+
+    private List<Marcador> marcadores;
+    private Vehiculo vehiculo;
+    private string id;
+
+    protected override void OnInitialized()
+    {
+        id = "";
+        var vehiculos = DatosSemilla.Instancia.Vehiculos;
+        marcadores = new List<Marcador>();
+        foreach (var vehiculo in vehiculos)
+        {
+            marcadores.Add(new Marcador
+            {
+                Titulo = vehiculo.ToString(),
+                Etiqueta = vehiculo.Color,
+                Latitud = vehiculo.Latitud,
+                Longitud = vehiculo.Longitud,
+                VehiculoId = vehiculo.Id
+            });
+        }
+    }
+
+    void ObtenerVehiculo(int id)
+    {
+        vehiculo = DatosSemilla.Instancia.Vehiculos.FirstOrDefault(vehiculo => vehiculo.Id == id);
+    }
+
+}
