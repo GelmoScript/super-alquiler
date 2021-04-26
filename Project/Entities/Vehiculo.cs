@@ -5,10 +5,7 @@ namespace SuperAlquiler.Entities
 {
     public class Vehiculo : EntidadBase, IClonador<Vehiculo>
     {
-        public Vehiculo()
-        {
-            TipoVehiculo = new TipoVehiculo();
-        }
+      
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public string Matricula { get; set; }
@@ -17,7 +14,7 @@ namespace SuperAlquiler.Entities
         public double PrecioPorDia { get; set; }
         public double CapacidadDeCarga { get; set; }
 
-        public TipoVehiculo TipoVehiculo { get; set; }
+        public string TipoVehiculo { get; set; }
         public string Color { get; set; }
         public double Latitud { get; set; }
         public double Longitud { get; set; }
@@ -49,7 +46,7 @@ namespace SuperAlquiler.Entities
         public Vehiculo Clonar()
         {
             Vehiculo vehiculo = (Vehiculo)MemberwiseClone();
-            vehiculo.TipoVehiculo = new TipoVehiculo { Id = TipoVehiculo.Id };
+            
             return vehiculo;
         }
     }

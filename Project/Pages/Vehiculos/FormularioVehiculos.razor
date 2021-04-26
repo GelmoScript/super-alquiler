@@ -1,5 +1,4 @@
-﻿@using System.Data;
-@using System.Data.SqlClient;
+﻿
 @if (Modo != null)
 {
     <EditForm Model="@Vehiculo">
@@ -100,23 +99,11 @@
                         Tipo de Vehiculo
                         @if (ModoEliminar)
                         {
-                            <InputSelect class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo.Id">
-                                <option value="0">Selecciona un valor</option>
-                                @foreach (var tipo in DatosSemilla.Instancia.TipoVehiculo)
-                                        {
-                                    <option value="@tipo.Id">@tipo.Nombre</option>
-                                        }
-                            </InputSelect>
+                            <InputText class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo"/>
                         }
                         else
                         {
-                            <InputSelect class="form-control" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo.Id">
-                                <option value="0">Selecciona un valor</option>
-                                @foreach (var tipo in DatosSemilla.Instancia.TipoVehiculo)
-                                        {
-                                    <option value="@tipo.Id">@tipo.Nombre</option>
-                                        }
-                            </InputSelect>
+                            <InputText class="form-control deshabilitado" id="tipo-de-sangre" @bind-Value="Vehiculo.TipoVehiculo" />
                         }
                     </label>
                     <label>
@@ -218,5 +205,5 @@
         Vehiculo.Latitud = posicion.Lat;
         Vehiculo.Longitud = posicion.Lng;
     }
-    SqlConnection conexion = new SqlConnection("server=tcp:gelmo-server.database.windows.net,1433;");
+   
 }
