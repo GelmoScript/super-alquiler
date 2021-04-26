@@ -144,7 +144,7 @@
                         @if (ModoEliminar)
                         {
                            
-                            <InputField class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto"/>
+                            <InputFile class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto"/>
                         }
                         else
                         {
@@ -157,13 +157,13 @@
                         @switch (Modo)
                         {
                             case FormModes.Editar:
-                                <button class="btn btn-outline-dark">Editar</button>
+                                <button class="btn btn-outline-dark" @onclick="Editar">Editar</button>
                                 break;
                             case FormModes.Agregar:
-                                <button class="btn btn-outline-dark">Agregar</button>
+                                <button class="btn btn-outline-dark" @onclick="Agregar">Agregar</button>
                                 break;
                             case FormModes.Eliminar:
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
                                 break;
                             default:
                                 break;
@@ -196,6 +196,9 @@
     [Parameter]
     public EventCallback<FormModes?> ParaCambiarModo { get; set; }
 
+    [Parameter]
+    public EventCallback CambioRealizado { get; set; }
+
     protected async Task Modo_Click(FormModes? modo)
     {
         await ParaCambiarModo.InvokeAsync(modo);
@@ -203,8 +206,29 @@
 
     void ObtenerPosicionDeMapa(GoogleMapPosition posicion)
     {
-        Vehiculo.Latitud = Convert.ToDecimal(posicion.Lat);
-        Vehiculo.Longitud = Convert.ToDecimal(posicion.Lng);
+        Vehiculo.Latitud = posicion.Lat;
+        Vehiculo.Longitud = posicion.Lng;
     }
-   
+
+    async Task Agregar()
+    {
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+        crudVehiculos.Create(Vehiculo);
+        await CambioRealizado.InvokeAsync();
+    }
+
+    async Task Editar()
+    {
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+        crudVehiculos.Update(Vehiculo);
+        await CambioRealizado.InvokeAsync();
+    }
+
+    async Task Eliminar()
+    {
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+        crudVehiculos.Delete(Vehiculo.Id);
+        await CambioRealizado.InvokeAsync();
+    }
+
 }

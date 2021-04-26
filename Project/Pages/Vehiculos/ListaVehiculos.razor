@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_vehiculos == null || _vehiculos.Count == 0)
+        @if (Vehiculos == null || Vehiculos.Count == 0)
         {
             <tr>
                 <td colspan="7">No hay vehiculos</td>
@@ -22,7 +22,7 @@
         }
         else
         {
-            @foreach (var vehiculo in _vehiculos)
+            @foreach (var vehiculo in Vehiculos)
             {
                 <tr>
                     <td>@vehiculo.Id</td>
@@ -51,21 +51,16 @@
 
 @code {
 
-    private List<Vehiculo> _vehiculos = new List<Vehiculo>();
-    
+    [Parameter]
+    public List<Vehiculo> Vehiculos { get; set; }
+
     [Parameter]
     public EventCallback<int> ParaEditarVehiculo { get; set; }
 
     [Parameter]
     public EventCallback<int> ParaEliminarVehiculo { get; set; }
 
-    protected override void OnInitialized()
-    {
-        var crud = new CRUDVehiculos();
-        _vehiculos = crud.Read();
-    }
-
-        protected async Task Editar_Click(int id)
+    protected async Task Editar_Click(int id)
     {
         await ParaEditarVehiculo.InvokeAsync(id);
     }

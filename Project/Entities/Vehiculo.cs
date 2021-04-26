@@ -11,13 +11,13 @@ namespace SuperAlquiler.Entities
         public string Matricula { get; set; }
         public string NoSeguro { get; set; }
         public int Year { get; set; }
-        public decimal PrecioPorDia { get; set; }
-        public decimal CapacidadDeCarga { get; set; }
+        public double PrecioPorDia { get; set; }
+        public double CapacidadDeCarga { get; set; }
 
         public string TipoVehiculo { get; set; }
         public string Color { get; set; }
-        public decimal Latitud { get; set; }
-        public decimal Longitud { get; set; }
+        public double Latitud { get; set; }
+        public double Longitud { get; set; }
         public int Pasajeros { get; set; }
         public byte[] Foto { get; set; }
         public string Ubicacion {
@@ -32,8 +32,8 @@ namespace SuperAlquiler.Entities
         {
             get
             {
-                _posicion.Lat = decimal.ToDouble(Latitud);
-                _posicion.Lng = decimal.ToDouble(Longitud);
+                _posicion.Lat = Latitud;
+                _posicion.Lng = Longitud;
                 return _posicion;
             }
         }

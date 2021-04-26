@@ -47,7 +47,7 @@ namespace SuperAlquiler.Services
             cmd.Parameters.AddWithValue("@PASAJEROS", vehiculo.Pasajeros);
             cmd.Parameters.AddWithValue("@MATRICULA", vehiculo.Matricula);
             cmd.Parameters.AddWithValue("@NUMERO_DE_SEGURO", vehiculo.NoSeguro);
-            cmd.Parameters.AddWithValue("@FOTO", vehiculo.Foto);
+            //cmd.Parameters.AddWithValue("@FOTO", vehiculo.Foto);
             cmd.Parameters.AddWithValue("@LATITUD", vehiculo.Latitud);
             cmd.Parameters.AddWithValue("@LONGITUD", vehiculo.Longitud);
 
@@ -71,6 +71,7 @@ namespace SuperAlquiler.Services
             {
                 Vehiculo vehiculo = new Vehiculo();
 
+                vehiculo.Id = reader.GetInt32("ID_VEHICULO");
                 vehiculo.Marca = reader.GetString("MARCA");
                 vehiculo.Modelo = reader.GetString("MODELO");
                 vehiculo.Year = reader.GetInt32("YEARS");

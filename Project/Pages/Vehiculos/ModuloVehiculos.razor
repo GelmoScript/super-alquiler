@@ -5,16 +5,18 @@
 {
     <button class="btn btn-danger" @onclick="LimpiarFormulario">Borrar</button>
 }
-<FormularioVehiculos Modo="@Modo" Vehiculo="@vehiculoActual" ParaCambiarModo="AsignarModo" />
-<ListaVehiculos ParaEditarVehiculo="EditarVehiculo" ParaEliminarVehiculo="EliminarVehiculo" />
+<FormularioVehiculos CambioRealizado="Refrescar" Modo="@Modo" Vehiculo="@vehiculoActual" ParaCambiarModo="AsignarModo" />
+<ListaVehiculos Vehiculos="_vehiculos" ParaEditarVehiculo="EditarVehiculo" ParaEliminarVehiculo="EliminarVehiculo" />
 
 @code {
     private FormModes? Modo = null;
     private Vehiculo vehiculoActual;
+    private List<Vehiculo> _vehiculos;
 
     protected override void OnInitialized()
     {
         vehiculoActual = new Vehiculo();
+        Refrescar();
     }
 
     void AsignarModo(FormModes? modo)
@@ -41,8 +43,14 @@
 
     protected void ObtenerVehiculoPorId(int id)
     {
-        var vehiculos = new List<Vehiculo>();
-        var vehiculo = vehiculos.FirstOrDefault(c => c.Id == id);
-        vehiculoActual = vehiculo.Clonar();
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+        vehiculoActual = crudVehiculos.SelectByID(id);
     }
+
+    void Refrescar()
+    {
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+        _vehiculos = crudVehiculos.Read();
+    }
+
 }
