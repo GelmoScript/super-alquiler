@@ -28,8 +28,6 @@ namespace SuperAlquiler.Seed
                 Licencia = "12345",
                 Nacionalidad = "Dominicano",
                 TipoDeSangre = "A+",
-                Foto = "fotocliente1",
-                FotoLicencia = "foto-licencia1"
             },
             new Cliente()
             {
@@ -41,8 +39,6 @@ namespace SuperAlquiler.Seed
                 Licencia = "123456",
                 Nacionalidad = "Dominicano",
                 TipoDeSangre = "A-",
-                Foto = "fotocliente2",
-                FotoLicencia = "foto-licencia2"
             },
             new Cliente()
             {
@@ -54,8 +50,6 @@ namespace SuperAlquiler.Seed
                 Licencia = "123457",
                 Nacionalidad = "Dominicano",
                 TipoDeSangre = "B+",
-                Foto = "fotocliente3",
-                FotoLicencia = "foto-licencia3"
             }
         };
 
@@ -74,9 +68,8 @@ namespace SuperAlquiler.Seed
                 Pasajeros = 4,
                 Matricula = "12345",
                 NoSeguro = "12345",
-                Foto = "fotovehiculo1",
-                Latitud = 23.894764,
-                Longitud = 23.482638
+                Latitud = 23.894764m,
+                Longitud = 23.482638m
             },
             new Vehiculo
             {
@@ -91,9 +84,8 @@ namespace SuperAlquiler.Seed
                 Pasajeros = 4,
                 Matricula = "123456",
                 NoSeguro = "123456",
-                Foto = "fotovehiculo2",
-                Latitud = 29.894764,
-                Longitud = 29.482638
+                Latitud = 29.894764m,
+                Longitud = 29.482638m
             },
             new Vehiculo
             {
@@ -108,9 +100,8 @@ namespace SuperAlquiler.Seed
                 Pasajeros = 4,
                 Matricula = "123457",
                 NoSeguro = "123457",
-                Foto = "fotovehiculo3",
-                Latitud = 25.894764,
-                Longitud = 25.482638
+                Latitud = 25.894764m,
+                Longitud = 25.482638m
             }
         };
 

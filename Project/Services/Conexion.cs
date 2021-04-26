@@ -20,9 +20,9 @@ namespace SuperAlquiler.Services
             }
         }
 
-        public Vehiculo ConsultarVehiculo (string procedimiento, Vehiculo vehiculo)
+        public Vehiculo ConsultarVehiculo (string procedimiento)
         {
-            vehiculo = new Vehiculo();
+            Vehiculo vehiculo = new Vehiculo();
 
             Conectar();
 
@@ -61,19 +61,20 @@ namespace SuperAlquiler.Services
 
             while (reader.Read())
             {
+                vehiculo.Id = reader.GetInt32("ID_VEHICULO");
                 vehiculo.Marca = reader.GetString("MARCA");
                 vehiculo.Modelo = reader.GetString("MODELO");
                 vehiculo.Year = reader.GetInt32("YEARS");
                 vehiculo.Color = reader.GetString("COLOR");
-                vehiculo.PrecioPorDia = reader.GetDouble("PRECIO_POR_DIA");
+                vehiculo.PrecioPorDia = reader.GetDecimal("PRECIO_POR_DIA");
                 vehiculo.TipoVehiculo.Nombre = reader.GetString("TIPO");
                 vehiculo.CapacidadDeCarga = reader.GetInt32("CAPACIDAD_DE_CARGA");
                 vehiculo.Pasajeros = reader.GetInt32("PASAJEROS");
                 vehiculo.Matricula = reader.GetString("MATRICULA");
                 vehiculo.NoSeguro = reader.GetString("NUMERO_DE_SEGURO");
                 vehiculo.Foto = (byte[]) reader["FOTO"];
-                vehiculo.Latitud = reader.GetDouble("LATITUD");
-                vehiculo.Longitud = reader.GetDouble("LONGITUD");
+                vehiculo.Latitud = Convert.ToDecimal(reader.GetString("LATITUD"));
+                vehiculo.Longitud = Convert.ToDecimal(reader.GetString("LONGITUD"));
             }
 
             List<Vehiculo> lista = new() { vehiculo };
@@ -81,9 +82,9 @@ namespace SuperAlquiler.Services
             return lista;
         }
 
-        public Cliente ConsultarCliente (string procedimiento, Cliente cliente)
+        public Cliente ConsultarCliente (string procedimiento)
         {
-            cliente = new Cliente();
+            Cliente cliente = new Cliente();
 
             Conectar();
 
@@ -134,9 +135,9 @@ namespace SuperAlquiler.Services
             return lista;
         }
 
-        public Reserva ConsultarReserva (Reserva reserva)
+        public Reserva ConsultarReserva ()
         {
-            reserva = new Reserva();
+            Reserva reserva = new Reserva();
 
             Conectar();
 
@@ -144,8 +145,8 @@ namespace SuperAlquiler.Services
             cmd.CommandType = CommandType.StoredProcedure;
             con.Open();
 
-            cmd.Parameters.AddWithValue("@VEHICULO", reserva.Vehiculo);
-            cmd.Parameters.AddWithValue("@CLIENTE", reserva.Cliente);
+            cmd.Parameters.AddWithValue("@VEHICULO", reserva.Vehiculo.Id);
+            cmd.Parameters.AddWithValue("@CLIENTE", reserva.Cliente.Id);
             cmd.Parameters.AddWithValue("@FECHA_INICIO", reserva.FechaInicio);
             cmd.Parameters.AddWithValue("@FECHA_FIN", reserva.FechaFin);
 

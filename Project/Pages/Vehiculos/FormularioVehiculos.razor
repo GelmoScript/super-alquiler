@@ -155,11 +155,11 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <InputText class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto" />
+                            <InputFile class="form-control deshabilitado" id="foto" @bind-Value="Vehiculo.Foto" />
                         }
                         else
                         {
-                            <InputText class="form-control" id="foto" @bind-Value="Vehiculo.Foto" />
+                            <InputFile class="form-control" id="foto" @bind-Value="Vehiculo.Foto" />
                         }
                     </label>
                     <div class="botones">
@@ -212,7 +212,7 @@
 
     void ObtenerPosicionDeMapa(GoogleMapPosition posicion)
     {
-        Vehiculo.Latitud = posicion.Lat;
-        Vehiculo.Longitud = posicion.Lng;
+        Vehiculo.Latitud = Convert.ToDecimal(posicion.Lat);
+        Vehiculo.Longitud = Convert.ToDecimal(posicion.Lng);
     }
 }

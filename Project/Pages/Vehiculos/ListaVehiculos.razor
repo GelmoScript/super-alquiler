@@ -1,4 +1,5 @@
-﻿<table class="table">
+﻿@using SuperAlquiler.Services;
+<table class="table">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
@@ -49,7 +50,7 @@
 </table>
 
 @code {
-    private List<Vehiculo> _vehiculos = DatosSemilla.Instancia.Vehiculos;
+    private List<Vehiculo> _vehiculos;
 
     [Parameter]
     public EventCallback<int> ParaEditarVehiculo { get; set; }
@@ -57,7 +58,13 @@
     [Parameter]
     public EventCallback<int> ParaEliminarVehiculo { get; set; }
 
-    protected async Task Editar_Click(int id)
+    protected override void OnInitialized()
+    {
+        var crud = new CRUDVehiculos();
+        _vehiculos = crud.Read();
+    }
+
+        protected async Task Editar_Click(int id)
     {
         await ParaEditarVehiculo.InvokeAsync(id);
     }
