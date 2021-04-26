@@ -9,6 +9,7 @@ namespace SuperAlquiler.Pages.Utilidades
         public string Etiqueta { get; set; }
         public double Latitud { get; set; }
         public double Longitud { get; set; }
+        public int VehiculoId { get; set; }
         private GoogleMapPosition _posicion = new GoogleMapPosition();
         public GoogleMapPosition Posicion
         {
