@@ -19,7 +19,7 @@
                         else
                         {
                             <InputSelect class="form-control" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
-                                <option value="0">Selecciona un vavehiculolor</option>
+                                <option value="0">Selecciona un vehiculo</option>
                                 @foreach (var vehiculo in new List<Vehiculo>())
                                 {
                                     <option value="@vehiculo.Id">@vehiculo.ToString()</option>
