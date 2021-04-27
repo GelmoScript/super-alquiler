@@ -83,10 +83,10 @@
                                 <button class="btn btn-outline-dark">Editar</button>
                                 break;
                             case FormModes.Agregar:
-                                <button class="btn btn-outline-dark">Agregar</button>
+                                <button class="btn btn-outline-dark" @onclick="Agregar">Agregar</button>
                                 break;
                             case FormModes.Eliminar:
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
                                 break;
                             default:
                                 break;
@@ -117,8 +117,25 @@
     [Parameter]
     public EventCallback<FormModes?> ParaCambiarModo { get; set; }
 
+    [Parameter]
+    public EventCallback<FormModes?> CambioRealizado { get; set; }
+
     protected async Task Modo_Click(FormModes? modo)
     {
         await ParaCambiarModo.InvokeAsync(modo);
+    }
+
+    async Task Agregar()
+    {
+        CRUDReservas crudReservas = new CRUDReservas();
+        crudReservas.Create(Reserva);
+        await CambioRealizado.InvokeAsync();
+    }
+
+    async Task Eliminar()
+    {
+        CRUDReservas crudReservas = new CRUDReservas();
+        crudReservas.Delete(Reserva.Id);
+        await CambioRealizado.InvokeAsync();
     }
 }

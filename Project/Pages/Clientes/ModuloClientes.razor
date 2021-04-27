@@ -8,7 +8,6 @@
 <ListaClientes Clientes="_clientes" ParaEditarCliente="EditarCliente" ParaEliminarCliente="EliminarCliente"></ListaClientes>
 
 @code {
-
     private FormModes? Modo = null;
     private Cliente clienteActual;
     private List<Cliente> _clientes;
@@ -46,6 +45,7 @@
         CRUDClientes crudClientes = new CRUDClientes();
         clienteActual = crudClientes.SelectByID(id);
     }
+
     void Refrescar()
     {
         CRUDClientes crudClientes = new CRUDClientes();

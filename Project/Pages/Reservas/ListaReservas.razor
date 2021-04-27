@@ -1,4 +1,5 @@
-﻿<table class="table">
+﻿
+<table class="table">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
@@ -10,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_reservas == null || _reservas.Count == 0)
+        @if (Reservas == null || Reservas.Count == 0)
         {
             <tr>
                 <td colspan="6">No hay reservas</td>
@@ -18,7 +19,7 @@
         }
         else
         {
-            @foreach (var reserva in _reservas)
+            @foreach (var reserva in Reservas)
             {
                 <tr>
                     <td>@reserva.Id</td>
@@ -42,7 +43,9 @@
     </tbody>
 </table>
 @code {
-    private List<Reserva> _reservas = new List<Reserva>();
+
+    [Parameter]
+    public List<Reserva> Reservas { get; set; }
 
     [Parameter]
     public EventCallback<int> ParaEditarReserva { get; set; }

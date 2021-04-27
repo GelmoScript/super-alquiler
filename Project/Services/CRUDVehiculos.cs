@@ -82,7 +82,7 @@ namespace SuperAlquiler.Services
                 vehiculo.Pasajeros = reader.GetInt32("PASAJEROS");
                 vehiculo.Matricula = reader.GetString("MATRICULA");
                 vehiculo.NoSeguro = reader.GetString("NUMERO_DE_SEGURO");
-                vehiculo.Foto = (byte[])reader["FOTO"];
+                //vehiculo.Foto = (byte[])reader["FOTO"];
                 vehiculo.Latitud = reader.GetDouble("LATITUD");
                 vehiculo.Longitud = reader.GetDouble("LONGITUD");
 
