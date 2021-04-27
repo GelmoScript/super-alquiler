@@ -20,7 +20,6 @@ namespace SuperAlquiler.Services
                 con.Open();
                 return con;
             }
-
             else 
             {
                 return con;

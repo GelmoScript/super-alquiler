@@ -1,4 +1,5 @@
-﻿<table class="table">
+﻿@using SuperAlquiler.Services;
+<table class="table">
     <thead class="thead-dark">
         <tr>
             <th>Id</th>
@@ -13,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_vehiculos == null || _vehiculos.Count == 0)
+        @if (Vehiculos == null || Vehiculos.Count == 0)
         {
             <tr>
                 <td colspan="7">No hay vehiculos</td>
@@ -21,7 +22,7 @@
         }
         else
         {
-            @foreach (var vehiculo in _vehiculos)
+            @foreach (var vehiculo in Vehiculos)
             {
                 <tr>
                     <td>@vehiculo.Id</td>
@@ -49,7 +50,9 @@
 </table>
 
 @code {
-    private List<Vehiculo> _vehiculos = new List<Vehiculo>();
+
+    [Parameter]
+    public List<Vehiculo> Vehiculos { get; set; }
 
     [Parameter]
     public EventCallback<int> ParaEditarVehiculo { get; set; }
