@@ -8,46 +8,46 @@
                         Vehiculo
                         @if (ModoEliminar)
                         {
-                            <InputSelect class="form-control deshabilitado" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
-                                <option value="0">Selecciona un vehiculo</option>
-                                @foreach (var vehiculo in new List<Vehiculo>())
-                                {
-                                    <option value="@vehiculo.Id">@vehiculo.ToString()</option>
-                                }
-                            </InputSelect>
+                        <InputSelect class="form-control deshabilitado" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
+                            <option value="0">Selecciona un vehiculo</option>
+                            @foreach (var vehiculo in Vehiculos)
+                                    {
+                                <option value="@vehiculo.Id">@vehiculo.ToString()</option>
+                                    }
+                        </InputSelect>
                         }
                         else
                         {
-                            <InputSelect class="form-control" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
-                                <option value="0">Selecciona un vehiculo</option>
-                                @foreach (var vehiculo in new List<Vehiculo>())
+                    <InputSelect class="form-control" id="vehiculo" @bind-Value="Reserva.Vehiculo.Id">
+                        <option value="0">Selecciona un vehiculo</option>
+                        @foreach (var vehiculo in Vehiculos)
                                 {
-                                    <option value="@vehiculo.Id">@vehiculo.ToString()</option>
+                            <option value="@vehiculo.Id">@vehiculo.ToString()</option>
                                 }
-                            </InputSelect>
+                    </InputSelect>
                         }
                     </label>
                     <label>
                         Clientes
                         @if (ModoEliminar)
                         {
-                            <InputSelect class="form-control deshabilitado" id="cliente" @bind-Value="Reserva.Cliente.Id">
-                                <option value="0">Selecciona un cliente</option>
-                                @foreach (var cliente in new List<Cliente>())
-                                        {
-                                    <option value="@cliente.Id">@cliente.ToString()</option>
-                                        }
-                            </InputSelect>
+                        <InputSelect class="form-control deshabilitado" id="cliente" @bind-Value="Reserva.Cliente.Id">
+                            <option value="0">Selecciona un cliente</option>
+                            @foreach (var cliente in Clientes)
+                                    {
+                                <option value="@cliente.Id">@cliente.ToString()</option>
+                                    }
+                        </InputSelect>
                         }
                         else
                         {
-                            <InputSelect class="form-control" id="cliente" @bind-Value="Reserva.Cliente.Id">
-                                <option value="0">Selecciona un cliente</option>
-                                @foreach (var cliente in new List<Cliente>())
-                                        {
-                                    <option value="@cliente.Id">@cliente.ToString()</option>
-                                        }
-                            </InputSelect>
+                    <InputSelect class="form-control" id="cliente" @bind-Value="Reserva.Cliente.Id">
+                        <option value="0">Selecciona un cliente</option>
+                        @foreach (var cliente in Clientes)
+                                {
+                            <option value="@cliente.Id">@cliente.ToString()</option>
+                                }
+                    </InputSelect>
                         }
                     </label>
                 </div>
@@ -139,4 +139,15 @@
         await CambioRealizado.InvokeAsync();
     }
 
+    private List<Vehiculo> Vehiculos { get; set; }
+    private List<Cliente> Clientes { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CRUDClientes crudClientes = new CRUDClientes();
+        CRUDVehiculos crudVehiculos = new CRUDVehiculos();
+
+        Clientes = crudClientes.Read();
+        Vehiculos = crudVehiculos.Read();
+    }
 }
