@@ -113,7 +113,7 @@ namespace SuperAlquiler.Services
             cmd.Parameters.AddWithValue("@PASAJEROS", vehiculo.Pasajeros);
             cmd.Parameters.AddWithValue("@MATRICULA", vehiculo.Matricula);
             cmd.Parameters.AddWithValue("@NUMERO_DE_SEGURO", vehiculo.NoSeguro);
-            cmd.Parameters.AddWithValue("@FOTO", vehiculo.Foto);
+            //cmd.Parameters.AddWithValue("@FOTO", vehiculo.Foto);
             cmd.Parameters.AddWithValue("@LATITUD", vehiculo.Latitud);
             cmd.Parameters.AddWithValue("@LONGITUD", vehiculo.Longitud);
 
