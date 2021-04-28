@@ -36,7 +36,8 @@ namespace SuperAlquiler.Services
                 ClienteQueDebe clientequedebe = new ClienteQueDebe();
                 clientequedebe.Cliente.Cedula = reader.GetString("CEDULA");
                 clientequedebe.Cliente.Nombre = reader.GetString("NOMBRES");
-                clientequedebe.Monto = reader.GetInt32("PENDIENTE_DE_PAGO");
+                clientequedebe.Cliente.Apellido = reader.GetString("APELLIDOS");
+                clientequedebe.Monto = reader.GetDouble("PENDIENTE_DE_PAGO");
                 lista.Add(clientequedebe);
             }
 
