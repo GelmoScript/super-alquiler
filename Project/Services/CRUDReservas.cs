@@ -53,7 +53,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM RESERVAS", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM RESERVAS WHERE BORRADO=0", con);
             SqlDataReader reader = cmd.ExecuteReader();
 
             List<Reserva> lista = new List<Reserva>();
