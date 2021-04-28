@@ -26,7 +26,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SELECT CLIENTES.CEDULA, CLIENTES.NOMBRES, CLIENTES.APELLIDOS, FACTURAS.PENDIENTE_DE_PAGO FROM FACTURAS JOIN RESERVAS ON FACTURAS.RESERVA =RESERVAS.ID_RESERVAS JOIN CLIENTES ON RESERVAS.CLIENTE = CLIENTES.ID_CLIENTE", con);
+            SqlCommand cmd = new SqlCommand("SELECT CEDULA, NOMBRES, APELLIDOS, PENDIENTE_DE_PAGO FROM FACTURAS JOIN RESERVAS ON FACTURAS.RESERVA =RESERVAS.ID_RESERVAS JOIN CLIENTES ON RESERVAS.CLIENTE = CLIENTES.ID_CLIENTE", con);
             SqlDataReader reader = cmd.ExecuteReader();
 
             List<ClienteQueDebe> lista = new List<ClienteQueDebe>();
@@ -34,9 +34,9 @@ namespace SuperAlquiler.Services
             while (reader.Read())
             {
                 ClienteQueDebe clientequedebe = new ClienteQueDebe();
-                clientequedebe.Cliente.Cedula = reader.GetString("CEDULA");
-                clientequedebe.Cliente.Nombre = reader.GetString("NOMBRES");
-                clientequedebe.Cliente.Apellido = reader.GetString("APELLIDOS");
+                clientequedebe.Cedula = reader.GetString("CEDULA");
+                clientequedebe.Nombre = reader.GetString("NOMBRES");
+                clientequedebe.Apellido = reader.GetString("APELLIDOS");
                 clientequedebe.Monto = reader.GetDouble("PENDIENTE_DE_PAGO");
                 lista.Add(clientequedebe);
             }

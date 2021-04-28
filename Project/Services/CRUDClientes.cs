@@ -75,8 +75,7 @@ namespace SuperAlquiler.Services
             List<Cliente> lista = new List<Cliente>();
 
             while (reader.Read())
-            {
-                
+            {                
                 Cliente cliente = new Cliente();
                 cliente.Id = reader.GetInt32("ID_CLIENTE");
                 cliente.Cedula = reader.GetString("CEDULA");
