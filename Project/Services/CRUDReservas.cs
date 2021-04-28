@@ -61,7 +61,7 @@ namespace SuperAlquiler.Services
             while (reader.Read())
             {
                 Reserva reserva = new Reserva();
-
+                reserva.Id = reader.GetInt32("ID_RESERVAS");
                 reserva.Vehiculo.Id = reader.GetInt32("VEHICULO");
                 reserva.Cliente.Id = reader.GetInt32("CLIENTE");
                 reserva.FechaInicio = reader.GetDateTime("FECHA_INICIO");

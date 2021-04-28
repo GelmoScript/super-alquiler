@@ -8,6 +8,7 @@ namespace SuperAlquiler.Entities
             Vehiculo = new Vehiculo();
             Cliente = new Cliente();
         }
+        //public int id { get; set; }
         public Vehiculo Vehiculo { get; set; }
         public Cliente Cliente { get; set; }
         public DateTime? FechaInicio { get; set; }
