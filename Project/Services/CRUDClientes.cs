@@ -69,7 +69,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM CLIENTES", con);
+            SqlCommand cmd = new SqlCommand("SELECT *FROM CLIENTES WHERE BORRADO=0", con);
             SqlDataReader reader = cmd.ExecuteReader();
 
             List<Cliente> lista = new List<Cliente>();
@@ -126,7 +126,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SP_ELIMINAR_CLIENTES", con);
+            SqlCommand cmd = new SqlCommand("SP_ELIMINAR_CLIENTE", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@ID_CLIENTE", id);

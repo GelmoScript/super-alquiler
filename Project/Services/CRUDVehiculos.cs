@@ -63,7 +63,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM VEHICULOS", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM VEHICULOS WHERE BORRADO=0", con);
             SqlDataReader reader = cmd.ExecuteReader();
 
             List<Vehiculo> lista = new List<Vehiculo>();
