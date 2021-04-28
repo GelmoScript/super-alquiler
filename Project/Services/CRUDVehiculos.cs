@@ -99,7 +99,7 @@ namespace SuperAlquiler.Services
 
             SqlConnection con = conexion.Conectar();
 
-            SqlCommand cmd = new SqlCommand("SP_MODIFICAR_VEHICULO", con);
+            SqlCommand cmd = new SqlCommand("SP_MODIFICAR_VEHICULOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@ID_VEHICULO", vehiculo.Id);
