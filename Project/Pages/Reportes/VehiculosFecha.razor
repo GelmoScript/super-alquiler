@@ -1,6 +1,19 @@
 ﻿@page "/reportes/vehiculos-por-fecha"
 <h3>Vehiculos por fecha</h3>
-
+<br>
+Introduzca el rango de año:
+<br>
+<br>
+Año inicial:
+<input type="number" min="2000" max="2021" @bind-value="year1" />
+<br>
+Año final:
+<input type="number" min="2000" max="2021" @bind-value="year2" />
+<br>
+<br>
+<button class="btn btn-primary" @onclick="getCarrosByFecha"> Ver </button>
+<br>
+<br>
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -26,14 +39,42 @@
                     <td>@vehiculo.Id</td>
                     <td>@vehiculo.Marca</td>
                     <td>@vehiculo.Modelo</td>
-                    <td>@vehiculo.Year</td>
                     <td>@vehiculo.Color</td>
+                    <td>@vehiculo.Year</td>
                 </tr>
             }
         }
     </tbody>
 </table>
-
 @code {
-    private List<Vehiculo> _vehiculos = new List<Vehiculo>();
+    @using System.Data.SqlClient;
+    @using System.Data;
+    List<Vehiculo> _vehiculos = new List<Vehiculo>();
+    Vehiculo vehiculo = new Vehiculo();
+    int year1, year2;
+    private void getCarrosByFecha()
+    {
+        SqlConnection con = new SqlConnection("Server=tcp:gelmo-server.database.windows.net,1433;Initial Catalog=GelmoDatabase;Persist Security Info=False;User ID=gelmoadmin;Password=GelmoPassword71;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        SqlCommand cmd;
+        if (year1 < year2)
+        {
+            cmd = new SqlCommand("select ID_VEHICULO, MARCA, MODELO, YEARS, COLOR from VEHICULOS WHERE YEARS BETWEEN " + year1 + " AND " + year2, con);
+        }
+        else
+        {
+            cmd = new SqlCommand("select ID_VEHICULO, MARCA, MODELO, YEARS, COLOR from VEHICULOS WHERE YEARS BETWEEN " + year2 + " AND " + year1, con);
+        }
+        con.Open();
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            vehiculo.Id = dr.GetInt32("ID_VEHICULO");
+            vehiculo.Marca = dr.GetString("MARCA");
+            vehiculo.Modelo = dr.GetString("MODELO");
+            vehiculo.Year = dr.GetInt32("YEARS");
+            vehiculo.Color = dr.GetString("COLOR");
+            _vehiculos.Add(vehiculo);
+        }
+        con.Close();
+    }
 }
