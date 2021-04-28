@@ -86,7 +86,7 @@
                         Foto
                         @if (ModoEliminar)
                         {
-                            <InputFile class="deshabilitado" id="foto" @bind-Value="Cliente.Foto" />
+                            <InputFile id="foto" @bind-Value="Cliente.Foto" />
                         }
                         else
                         {
@@ -97,7 +97,7 @@
                         Foto de Licencia
                         @if (ModoEliminar)
                         {
-                            <InputFile class="form-control deshabilitado" id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
+                            <InputFile  id="foto-licencia" @bind-Value="Cliente.FotoLicencia" />
                         }
                         else
                         {

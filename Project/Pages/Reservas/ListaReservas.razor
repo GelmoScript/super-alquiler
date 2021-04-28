@@ -28,10 +28,10 @@
                     <td>@reserva.FechaInicio</td>
                     <td>@reserva.FechaFin</td>
                     <td>
-                        <button class="btn btn-primary"
+                        @*<button class="btn btn-primary"
                                 @onclick="async () => { await Editar_Click(reserva.Id); }">
                             <span class="oi oi-pencil"></span>
-                        </button>
+                        </button>*@
                         <button class="btn btn-danger"
                                 @onclick="async () => { await Eliminar_Click(reserva.Id); }">
                             <span class="oi oi-x"></span>
