@@ -11,7 +11,7 @@ namespace SuperAlquiler.Services
 {
     public class CRUDClientes
     {
-        string ruta;
+        
         Conexion conexion = null;
 
         private void InstanciarConexion()

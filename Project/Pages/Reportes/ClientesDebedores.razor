@@ -32,4 +32,19 @@
 
 @code {
     private List<ClienteQueDebe> _clientes;
+    private ClienteQueDebe clientequedebeactual;
+   
+
+    protected override void OnInitialized()
+    {
+        clientequedebeactual = new ClienteQueDebe();
+        Refrescar();
+    }
+
+    void Refrescar()
+    {
+        CRUDCLientesDebedores crudClientesDebedores = new CRUDCLientesDebedores();
+        _clientes = crudClientesDebedores.Read();
+    }
+}
 }

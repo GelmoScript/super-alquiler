@@ -13,8 +13,13 @@
     private Vehiculo vehiculoActual;
     private List<Vehiculo> _vehiculos;
 
-    protected override void OnInitialized()
-    {
+    private List<Vehiculo> Vehiculos { get; set; }
+    private List<Cliente> Clientes { get; set; }
+
+     
+
+        protected override void OnInitialized()
+    {        
         vehiculoActual = new Vehiculo();
         Refrescar();
     }
